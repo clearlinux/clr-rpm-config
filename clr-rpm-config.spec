@@ -1,7 +1,7 @@
 Name:       clr-rpm-config
 Summary:    Clear Linux specific rpm configuration files
 Version:    1
-Release:    3
+Release:    4
 Group:      Development/System
 License:    GPLv2+
 URL:        http://www.clearlinux.org
@@ -22,9 +22,9 @@ Clear Linux specific rpm configuration files.
 rm -rf %{buildroot}
 make DESTDIR=${RPM_BUILD_ROOT} install
 mkdir -p  $RPM_BUILD_ROOT/usr/lib/rpm
-ln -s clear $RPM_BUILD_ROOT/usr/lib/rpm/unknown
-ln -s clear $RPM_BUILD_ROOT/usr/lib/rpm/redhat
-ln -s clear $RPM_BUILD_ROOT/usr/lib/rpm/pc
+ln -s clr $RPM_BUILD_ROOT/usr/lib/rpm/unknown
+ln -s clr $RPM_BUILD_ROOT/usr/lib/rpm/redhat
+ln -s clr $RPM_BUILD_ROOT/usr/lib/rpm/pc
 
 %files
 %defattr(-,root,root,-)

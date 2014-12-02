@@ -19,6 +19,7 @@
 %_initrddir		%{_sysconfdir}/rc.d/init.d
 %_defaultdocdir		%{_usr}/share/doc
 %_docdir_fmt		%%{NAME}
+%_libdir		/usr/lib64
 %_fmoddir		%{_libdir}/gfortran/modules
 %_enable_debug_packages 1
 

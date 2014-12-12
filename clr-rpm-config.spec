@@ -1,7 +1,7 @@
 Name:       clr-rpm-config
 Summary:    Clear Linux specific rpm configuration files
 Version:    1
-Release:    16
+Release:    20
 Group:      Development/System
 License:    GPLv2+
 URL:        http://www.clearlinux.org

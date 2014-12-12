@@ -41,7 +41,7 @@
 	--prefix=%{_prefix} \\\
 	--exec-prefix=%{_exec_prefix} \\\
 	--bindir=%{_bindir} \\\
-	--sbindir=%{_sbindir} \\\
+	--sbindir=%{_bindir} \\\
 	--sysconfdir=%{_sysconfdir} \\\
 	--datadir=%{_datadir} \\\
 	--includedir=%{_includedir} \\\
@@ -64,7 +64,7 @@
 	--prefix=%{_prefix} \\\
 	--exec-prefix=%{_exec_prefix} \\\
 	--bindir=%{_bindir} \\\
-	--sbindir=%{_sbindir} \\\
+	--sbindir=%{_bindir} \\\
 	--sysconfdir=%{_sysconfdir} \\\
 	--datadir=%{_datadir} \\\
 	--includedir=%{_includedir} \\\
@@ -86,7 +86,7 @@
 	--prefix=%{_prefix} \\\
 	--exec-prefix=%{_exec_prefix} \\\
 	--bindir=%{_bindir} \\\
-	--sbindir=%{_sbindir} \\\
+	--sbindir=%{_bindir} \\\
 	--sysconfdir=%{_sysconfdir} \\\
 	--datadir=%{_datadir} \\\
 	--includedir=%{_includedir} \\\
@@ -102,7 +102,7 @@
 	--prefix=%{_prefix} \\\
 	--exec-prefix=%{_exec_prefix} \\\
 	--bindir=%{_bindir} \\\
-	--sbindir=%{_sbindir} \\\
+	--sbindir=%{_bindir} \\\
 	--sysconfdir=%{_sysconfdir} \\\
 	--datadir=%{_datadir} \\\
 	--includedir=%{_includedir} \\\
@@ -122,7 +122,7 @@
 	--prefix=%{_prefix} \\\
 	--exec-prefix=%{_exec_prefix} \\\
 	--bindir=%{_bindir} \\\
-	--sbindir=%{_sbindir} \\\
+	--sbindir=%{_bindir} \\\
 	--sysconfdir=%{_sysconfdir} \\\
 	--datadir=%{_datadir} \\\
 	--includedir=%{_includedir} \\\
@@ -139,7 +139,7 @@
 	prefix=%{?buildroot:%{buildroot}}%{_prefix} \\\
 	exec_prefix=%{?buildroot:%{buildroot}}%{_exec_prefix} \\\
 	bindir=%{?buildroot:%{buildroot}}%{_bindir} \\\
-	sbindir=%{?buildroot:%{buildroot}}%{_sbindir} \\\
+	sbindir=%{?buildroot:%{buildroot}}%{_bindir} \\\
 	sysconfdir=%{?buildroot:%{buildroot}}%{_sysconfdir} \\\
 	datadir=%{?buildroot:%{buildroot}}%{_datadir} \\\
 	includedir=%{?buildroot:%{buildroot}}%{_includedir} \\\

@@ -162,8 +162,12 @@
   install \
   rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
   find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
+  [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && mv %{?buildroot:%{buildroot}}/usr/sbin/* %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && mv %{?buildroot:%{buildroot}}/bin/* %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/sbin ] && mv %{?buildroot:%{buildroot}}/sbin/* %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/usr/share/pkgconfig ] && mkdir -p %{?buildroot:%{buildroot}}/usr/lib64/pkgconfig || : \
   [ -d %{?buildroot:%{buildroot}}/usr/lib/pkgconfig ] && mkdir -p %{?buildroot:%{buildroot}}/usr/lib64/pkgconfig || : \
   [ -d %{?buildroot:%{buildroot}}/usr/share/pkgconfig ] && mv %{?buildroot:%{buildroot}}/usr/share/pkgconfig/*   %{?buildroot:%{buildroot}}/usr/lib64/pkgconfig   || : \

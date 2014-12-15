@@ -172,6 +172,8 @@
   [ -d %{?buildroot:%{buildroot}}/usr/lib/pkgconfig ] && mkdir -p %{?buildroot:%{buildroot}}/usr/lib64/pkgconfig || : \
   [ -d %{?buildroot:%{buildroot}}/usr/share/pkgconfig ] && mv %{?buildroot:%{buildroot}}/usr/share/pkgconfig/*   %{?buildroot:%{buildroot}}/usr/lib64/pkgconfig   || : \
   [ -d %{?buildroot:%{buildroot}}/usr/lib/pkgconfig ] && mv %{?buildroot:%{buildroot}}/usr/lib/pkgconfig/*   %{?buildroot:%{buildroot}}/usr/lib64/pkgconfig   || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/lib/python2.7 ] && mv %{?buildroot:%{buildroot}}/usr/lib/python2.7/*   %{?buildroot:%{buildroot}}/usr/lib64/python2.7   || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/lib/python3 ] && mv %{?buildroot:%{buildroot}}/usr/lib/python3/*   %{?buildroot:%{buildroot}}/usr/lib64/python3   || : \
   [ -d %{?buildroot:%{buildroot}}/usr/share/doc/%{name}-%{version} ] && mv %{?buildroot:%{buildroot}}/usr/share/doc/%{name}-%{version} %{?buildroot:%{buildroot}}/usr/share/doc/%{name} || : \
   [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && rmdir %{?buildroot:%{buildroot}}/usr/sbin || : \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && rmdir %{?buildroot:%{buildroot}}/sbin || : \

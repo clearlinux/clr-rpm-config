@@ -269,6 +269,7 @@ LANG=C\
 export LANG\
 unset DISPLAY\
 CFLAGS="%optflags" ; export CFLAGS ; \
+LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
 CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
 FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
 LD_AS_NEEDED=1; export LD_AS_NEEDED ; \

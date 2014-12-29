@@ -176,7 +176,7 @@
   [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && rmdir %{?buildroot:%{buildroot}}/usr/sbin || : \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && rmdir %{?buildroot:%{buildroot}}/sbin || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && rmdir %{?buildroot:%{buildroot}}/bin || : \
-  chmod a+x %{?buildroot:%{buildroot}}/usr/lib/* || : \
+  chmod a+x %{?buildroot:%{buildroot}}/usr/lib64/* || : \
   chmod a+x %{?buildroot:%{buildroot}}/lib/* || : \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f --}   \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}   \

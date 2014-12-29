@@ -33,6 +33,7 @@
 %configure \
   CC="/usr/bin/gcc" ; export CC ; \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
+  LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
   ./configure --build=%{_build} --host=%{_host} \\\
@@ -56,6 +57,7 @@
 %reconfigure \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+  LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
   autoreconf -v --install --force || exit 1 \
   ./configure --build=%{_build} --host=%{_host} \\\
@@ -78,6 +80,7 @@
 %autogen \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+  LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
   NOCONFIGURE="noconfigure"; export NOCONFIGURE ; \
   sh ./autogen.sh --build=%{_build} --host=%{_host} \\\
@@ -116,6 +119,7 @@
 
 %waf \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
+  LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
   ./waf configure \\\

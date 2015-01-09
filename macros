@@ -165,6 +165,7 @@
 	INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
   install %* \
   rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
+  rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
   find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \

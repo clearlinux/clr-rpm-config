@@ -68,7 +68,7 @@ done | sort -u
 
 #
 # --- any other extra find-provides scripts
-for i in find-provides.d/*.prov
+for i in /usr/lib/rpm/clr/find-provides.d/*.prov
 do
     [ -x $i ] &&
         (echo $filelist | tr '[:blank:]' \\n | $i | sort -u)

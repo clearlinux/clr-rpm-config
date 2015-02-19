@@ -1,0 +1,6 @@
+#!/bin/sed -nf
+s|/usr/lib/perl5/site_perl/5[0-9.]*/x86_64-linux/\(.*\).pm|perl(\1)|
+tx
+d
+:x
+s|/|::|pg

@@ -1,0 +1,2 @@
+%__perl_provides %{_rpmconfigdir}/clr/find-provides.d/perl.prov
+%__perl_path     ^/usr/lib/.*\\.pm$

@@ -18,6 +18,8 @@ install:
 	cp -pr * $(DESTDIR)/usr/lib/rpm/clr/
 	rm -f $(DESTDIR)/usr/lib/rpm/clr/Makefile
 	rm -f $(DESTDIR)/usr/lib/rpm/clr/clr-rpm-config.spec
+	mkdir -p $(DESTDIR)/usr/lib/rpm/fileattrs
+	mv $(DESTDIR)/usr/lib/rpm/clr/*.attr $(DESTDIR)/usr/lib/rpm/fileattrs
 
 tag-archive:
 	git tag -a $(VERSION)

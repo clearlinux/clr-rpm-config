@@ -255,16 +255,16 @@ package or when debugging this package.\
 %endif\
 %{nil}
 
-# Bad hack to set $LANG to C during all RPM builds
+# Bad hack to set $LANG to a UTF-8 capable locale during all RPM builds
 %prep \
 %%prep\
-LANG=C\
+LANG=en_US.UTF-8\
 export LANG\
 unset DISPLAY\
 %{nil}
 
 %build %%build\
-LANG=C\
+LANG=en_US.UTF-8\
 export LANG\
 unset DISPLAY\
 CFLAGS="%optflags" ; export CFLAGS ; \
@@ -278,7 +278,7 @@ PATH="/usr/lib64/ccache/bin:/usr/local/bin:/usr/bin"; export PATH ; \
 
 %install %{?_enable_debug_packages:%{?buildsubdir:%{debug_package}}}\
 %%install\
-LANG=C\
+LANG=en_US.UTF-8\
 export LANG\
 unset DISPLAY\
 rm -rf %{?buildroot:%{buildroot}} \
@@ -286,6 +286,8 @@ mkdir -p %{?buildroot:%{buildroot}} \
 %{nil}
 
 %check %%check\
+LANG=en_US.UTF-8\
+export LANG\
 unset DISPLAY\
 %{nil}
 

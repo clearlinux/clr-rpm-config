@@ -32,7 +32,7 @@
 #
 %configure \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
-  LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
+  LDFLAGS="-Wl,-z,now -Wl,-z,relro -Wl,-z,max-page-size=0x1000" ; export LDFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
   ./configure --build=%{_build} --host=%{_host} \\\
@@ -56,7 +56,7 @@
 %reconfigure \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
-  LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
+  LDFLAGS="-Wl,-z,now -Wl,-z,relro -Wl,-z,max-page-size=0x1000" ; export LDFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
   autoreconf -v --install --force || exit 1 \
   ./configure --build=%{_build} --host=%{_host} \\\
@@ -79,7 +79,7 @@
 %autogen \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
-  LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
+  LDFLAGS="-Wl,-z,now -Wl,-z,relro -Wl,-z,max-page-size=0x1000" ; export LDFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
   NOCONFIGURE="noconfigure"; export NOCONFIGURE ; \
   sh ./autogen.sh --build=%{_build} --host=%{_host} \\\
@@ -118,7 +118,7 @@
 
 %waf \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
-  LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
+  LDFLAGS="-Wl,-z,now -Wl,-z,relro -Wl,-z,max-page-size=0x1000" ; export LDFLAGS ; \
   CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
   FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
   ./waf configure \\\
@@ -268,7 +268,7 @@ LANG=en_US.UTF-8\
 export LANG\
 unset DISPLAY\
 CFLAGS="%optflags" ; export CFLAGS ; \
-LDFLAGS="-Wl,-z,now -Wl,-z,relro" ; export LDFLAGS ; \
+LDFLAGS="-Wl,-z,now -Wl,-z,relro -Wl,-z,max-page-size=0x1000" ; export LDFLAGS ; \
 CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
 FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
 LD_AS_NEEDED=1; export LD_AS_NEEDED ; \
@@ -328,7 +328,7 @@ posix.setenv("RPMBUILD_SOURCEDIR",rpm.expand("%?_sourcedir"));
 %__find_provides        /usr/lib/rpm/clr/find-provides
 %__find_requires        /usr/lib/rpm/clr/find-requires
 
-%__global_cflags	-O2 -g2 -feliminate-unused-debug-types  -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,--copy-dt-needed-entries -Wno-error -Wl,-z -Wl,now -Wl,-z -Wl,relro
+%__global_cflags	-O2 -g2 -feliminate-unused-debug-types  -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,--copy-dt-needed-entries -Wno-error -Wl,-z -Wl,now -Wl,-z -Wl,relro -Wl,-z,max-page-size=0x1000
 
 
 # Disable lookups

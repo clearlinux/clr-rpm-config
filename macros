@@ -259,6 +259,7 @@ unset DISPLAY\
 LANG=en_US.UTF-8\
 export LANG\
 unset DISPLAY\
+unset PYTHONOPTIMIZE \
 CFLAGS="%optflags" ; export CFLAGS ; \
 CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
 FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
@@ -272,6 +273,7 @@ PATH="/usr/lib64/ccache/bin:/usr/local/bin:/usr/bin"; export PATH ; \
 LANG=en_US.UTF-8\
 export LANG\
 unset DISPLAY\
+unset PYTHONOPTIMIZE \
 rm -rf %{?buildroot:%{buildroot}} \
 mkdir -p %{?buildroot:%{buildroot}} \
 %{nil}
@@ -280,6 +282,7 @@ mkdir -p %{?buildroot:%{buildroot}} \
 LANG=en_US.UTF-8\
 export LANG\
 unset DISPLAY\
+unset PYTHONOPTIMIZE \
 %{nil}
 
 %clean %%clean\

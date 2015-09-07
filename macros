@@ -155,6 +155,7 @@
   rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
   rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
   find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
+  find %{?buildroot:%{buildroot}} -regex ".*\\.pyo$" | xargs rm -f -- \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
@@ -173,7 +174,6 @@
   chmod a+x %{?buildroot:%{buildroot}}/lib/* || : \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f --}   \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}   \
-  %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.pyo$" | xargs rm -f --}   \
 
 %_smp_mflags %([ -z "$RPM_BUILD_NCPUS" ] \\\
 	&& RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"; \\\

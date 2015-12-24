@@ -3,6 +3,6 @@ s|.*/usr/lib/perl5/site_perl/5[0-9.]*/\(.*\).pm|perl(\1)|
 tx
 d
 :x
-s|x86_64-linux/||
+s|[a-z0-9\_]*-linux/||
 s|/|::|g
 p

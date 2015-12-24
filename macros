@@ -5,7 +5,8 @@
 #
 %_vendor		clr
 %_os			linux
-%_target_platform	x86_64-generic-linux-gnu
+%_target_platform	%{_target_cpu}-%{_vendor}-%{_target_os}%{?_gnu}
+
 
 #==============================================================================
 # ---- configure macros.  note that most of these are inherited

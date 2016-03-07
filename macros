@@ -263,7 +263,7 @@ export LANG\
 unset DISPLAY\
 unset PYTHONOPTIMIZE \
 CFLAGS="%optflags" ; export CFLAGS ; \
-CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+CXXFLAGS="%optflags" ; export CXXFLAGS ; \
 FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
 LD_AS_NEEDED=1; export LD_AS_NEEDED ; \
 PKG_CONFIG_LIBDIR=/usr/lib64/pkgconfig; export PKG_CONFIG_LIBDIR ; \

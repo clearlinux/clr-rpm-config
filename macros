@@ -173,7 +173,7 @@
   [ -d %{?buildroot:%{buildroot}}/bin ] && rmdir %{?buildroot:%{buildroot}}/bin || : \
   chmod a+x %{?buildroot:%{buildroot}}/usr/lib64/* || : \
   chmod a+x %{?buildroot:%{buildroot}}/lib/* || : \
-  find %{buildroot} | xargs touch -d "@${SOURCE_DATE_EPOCH:-1484271242}" \
+  find %{buildroot} | xargs touch -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f --}   \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}   \
 

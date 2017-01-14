@@ -245,6 +245,7 @@
     %{!?__debug_package:/usr/lib/rpm/clr/brp-strip %{__strip}} \
     /usr/lib/rpm/clr/brp-strip-static-archive %{__strip} \
     /usr/lib/rpm/clr/brp-strip-comment-note %{__strip} %{__objdump} \
+    find %{buildroot} | xargs touch -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \
     /usr/bin/clr-python-timestamp %{buildroot}/usr/lib/ || : \
     /usr/lib/rpm/brp-python-bytecompile \
     /usr/lib/rpm/clr/brp-python-hardlink \

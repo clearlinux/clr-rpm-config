@@ -249,6 +249,7 @@
     /usr/bin/clr-python-timestamp %{buildroot}/usr/lib/ || : \
     /usr/lib/rpm/brp-python-bytecompile \
     /usr/lib/rpm/clr/brp-python-hardlink \
+    /usr/bin/clr-python-timestamp %{buildroot}/usr/lib/ || : \
     %{!?__jar_repack:/usr/lib/rpm/clr/brp-java-repack-jars} \
 %{nil}
 

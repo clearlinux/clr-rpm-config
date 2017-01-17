@@ -5,6 +5,9 @@ if [ -z "$RPM_BUILD_ROOT" -o "$RPM_BUILD_ROOT" = "/" ]; then
 	exit 0
 fi
 
+JARS=`find $RPM_BUILD_ROOT -type f -name \*.jar`
+zipdate $JARS || :
+
 # If zip is not installed, we can't repack the jars.
 if [ ! -x /usr/bin/zip ]; then
 	exit 0
@@ -13,8 +16,6 @@ if [ ! -x /usr/bin/unzip ]; then
 	exit 0
 fi
 
-JARS=`find $RPM_BUILD_ROOT -type f -name \*.jar`
-zipdate $JARS
 if [ ! -z "$JARS" ]; then 
 	
 	# make $RPM_BUILD_ROOT/tmp if it doesn't exist

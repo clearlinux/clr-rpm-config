@@ -6,7 +6,6 @@ if [ -z "$RPM_BUILD_ROOT" -o "$RPM_BUILD_ROOT" = "/" ]; then
 fi
 
 JARS=`find $RPM_BUILD_ROOT -type f -name \*.jar`
-zipdate $JARS || :
 
 # If zip is not installed, we can't repack the jars.
 if [ ! -x /usr/bin/zip ]; then
@@ -46,7 +45,7 @@ if [ ! -z "$JARS" ]; then
 
 		# Get the modtime from the newest ChangeLog. If the project
 		# doesn't have a ChangeLog, Jan 1, 1970 will be used.
-		DATE="1970-01-01 UTC"
+		DATE="1990-01-01 UTC"
 
 		if [ -z $_PACKAGE_BUILD_DIR ]; then
 			_PACKAGE_BUILD_DIR=$RPM_BUILD_DIR/$RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
@@ -97,3 +96,4 @@ if [ ! -z "$JARS" ]; then
 		rm -rf $RPM_BUILD_ROOT/tmp
 	fi
 fi
+echo $JARS | xargs touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \

@@ -14,6 +14,7 @@ if [ ! -x /usr/bin/unzip ]; then
 fi
 
 JARS=`find $RPM_BUILD_ROOT -type f -name \*.jar`
+zipdate $JARS
 if [ ! -z "$JARS" ]; then 
 	
 	# make $RPM_BUILD_ROOT/tmp if it doesn't exist

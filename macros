@@ -33,7 +33,6 @@
 #
 %configure \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
-  PYTHON="/usr/bin/python3" ; export PYTHON ; \
   ./configure --build=%{_build} --host=%{_host} \\\
 	--target=%{_target_platform} \\\
 	--program-prefix=%{?_program_prefix} \\\

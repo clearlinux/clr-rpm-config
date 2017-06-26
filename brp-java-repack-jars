@@ -7,11 +7,8 @@ fi
 
 JARS=`find $RPM_BUILD_ROOT -type f -name \*.jar`
 
-# If zip is not installed, we can't repack the jars.
-if [ ! -x /usr/bin/zip ]; then
-	exit 0
-fi
-if [ ! -x /usr/bin/unzip ]; then
+# If jar is not installed, we can't repack the jars.
+if [ ! -x /usr/bin/jar ]; then
 	exit 0
 fi
 
@@ -33,7 +30,7 @@ if [ ! -z "$JARS" ]; then
 		TIMEREF=`mktemp -p $RPM_BUILD_ROOT/tmp $JARNAME.timeref.XXXXXXXXXX` || exit 1
 		
 		pushd $JTMPDIR > /dev/null
-		/usr/bin/unzip -qq -o $j
+		/usr/bin/jar xf $j
 		find -type d -exec chmod a+rx {} \;
 		find -type f -exec chmod a+r {} \;
 		rm -f $j
@@ -78,7 +75,11 @@ if [ ! -z "$JARS" ]; then
 		pushd $JARDIR > /dev/null
 
 		if [ -n "`find -not -name '.'`" ]; then
-			find * -not -name '.' | LC_ALL=C sort | /usr/bin/zip -q -X -9 $j -@
+			if [ -e META-INF/MANIFEST.MF ]; then
+				/usr/bin/jar cfm $j META-INF/MANIFEST.MF .
+			else
+				/usr/bin/jar cf $j .
+			fi
 		else
 			# Put the empty jar back
 			touch $j

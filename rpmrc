@@ -10,6 +10,6 @@ Optflags: i386 %{__global_cflags}   -m32 -march=i586 -mtune=i486 -Os -D_LARGEFIL
 Optflags: i486 %{__global_cflags}   -m32 -march=i586 -mtune=i486 -Os -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -fasynchronous-unwind-tables -fomit-frame-pointer
 Optflags: i586 %{__global_cflags}   -m32 -march=i586 -mtune=i486 -Os -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -fasynchronous-unwind-tables -fomit-frame-pointer
 Optflags: i686 %{__global_cflags}   -m32 -march=i586 -mtune=i486 -Os -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -fasynchronous-unwind-tables -fomit-frame-pointer
-optflags: x86_64 %{__global_cflags} -m64 -march=westmere -mtune=skylake -fasynchronous-unwind-tables -fno-omit-frame-pointer -Wp,-D_REENTRANT 
+optflags: x86_64 %{__global_cflags} -m64 -march=westmere -mtune=skylake -fasynchronous-unwind-tables -Wp,-D_REENTRANT 
 
 macrofiles:     /usr/lib/rpm/macros:/usr/lib/rpm/%{_target}/macros:/usr/lib/rpm/clr/macros:/etc/rpm/macros.*:/etc/rpm/macros:/etc/rpm/%{_target}/macros:~/.rpmmacros

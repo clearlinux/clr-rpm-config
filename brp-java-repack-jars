@@ -74,6 +74,12 @@ if [ ! -z "$JARS" ]; then
 		# make the jar
 		pushd $JARDIR > /dev/null
 
+        # Remove manifest signature files.
+        # TO-DO: Find a better way to repackage jars with signature files.
+        if [ -e META-INF/*.SF ]; then
+            rm META-INF/*.SF
+        fi
+
 		if [ -n "`find -not -name '.'`" ]; then
 			if [ -e META-INF/MANIFEST.MF ]; then
 				/usr/bin/jar cfm $j META-INF/MANIFEST.MF .

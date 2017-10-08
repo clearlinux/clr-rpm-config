@@ -250,6 +250,7 @@
     /usr/lib/rpm/clr/brp-python-hardlink \
     find %{buildroot} | xargs touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \
     /usr/bin/clr-python-timestamp %{buildroot}/usr/lib/ || : \
+    find %{buildroot} -name "*.so.avx512" | xargs -n1 /usr/bin/clr-python-avx512 || : \
     %{!?__jar_repack:/usr/lib/rpm/clr/brp-java-repack-jars} \
 %{nil}
 

@@ -360,7 +360,7 @@ posix.setenv("RPMBUILD_SOURCEDIR",rpm.expand("%?_sourcedir"));
 %__find_provides        /usr/lib/rpm/clr/find-provides
 %__find_requires        /usr/lib/rpm/clr/find-requires
 
-%__global_cflags	-O2 -fPIC -g -feliminate-unused-debug-types  -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,--copy-dt-needed-entries -Wno-error -Wl,-z -Wl,now -Wl,-z -Wl,relro -Wl,-z,max-page-size=0x1000 -ftree-vectorize 
+%__global_cflags	-O2 -fPIC -g -feliminate-unused-debug-types -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,--copy-dt-needed-entries,-z,now,-z,relro,-z,max-page-size=0x1000 -Wno-error -ftree-vectorize
 
 
 # Disable lookups

@@ -154,6 +154,7 @@
 	INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
   install %* \
   rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
+  rm -f %{?buildroot:%{buildroot}}/usr/lib64/haswell/pkgconfig \
   rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
   find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
   find %{?buildroot:%{buildroot}} -regex ".*\\.pyo$" | xargs rm -f -- \

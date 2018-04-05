@@ -253,6 +253,8 @@
     /usr/bin/clr-python-timestamp %{buildroot}/usr/ || : \
     find %{buildroot} -name "*.so.avx512" | xargs -n1 /usr/bin/clr-python-avx512 || : \
     find %{buildroot} -name "*.so.avx2" | xargs -n1 /usr/bin/clr-python-avx2 || : \
+    find %{buildroot}/usr/lib64/haswell/avx512_1 -name "*.so*" | xargs -n1 /usr/bin/clr-python-avx512 || : \
+    find %{buildroot}/usr/lib64/haswell -name "*.so*" | xargs -n1 /usr/bin/clr-python-avx2 || : \
     %{!?__jar_repack:/usr/lib/rpm/clr/brp-java-repack-jars} \
 %{nil}
 

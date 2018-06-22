@@ -304,6 +304,10 @@ export LANG\
 unset DISPLAY\
 unset PYTHONOPTIMIZE \
 CFLAGS="%optflags" ; export CFLAGS ; \
+http_proxy="http://127.0.0.1:9/"; export http_proxy ; \
+https_proxy="http://127.0.0.1:9/"; export https_proxy ; \
+ftp_proxy="http://127.0.0.1:9/"; export ftp_proxy ; \
+no_proxy="localhost,127.0.0.1,0.0.0.0"; export no_proxy ; \
 CXXFLAGS="%optflags" ; export CXXFLAGS ; \
 FFLAGS="${FFLAGS:-%optflags -I%_fmoddir}" ; export FFLAGS ; \
 LD_AS_NEEDED=1; export LD_AS_NEEDED ; \

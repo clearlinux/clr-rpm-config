@@ -144,7 +144,7 @@
 	infodir=%{?buildroot:%{buildroot}}%{_infodir} \\\
   install
 
-%make_install() \
+%make_install_common() \
   %{__make} \\\
 	DESTDIR=%{?buildroot:%{buildroot}} \\\
 	INSTALLROOT=%{?buildroot:%{buildroot}} \\\
@@ -175,9 +175,22 @@
   [ -d %{?buildroot:%{buildroot}}/bin ] && rmdir %{?buildroot:%{buildroot}}/bin || : \
   chmod a+x %{?buildroot:%{buildroot}}/usr/lib64/* || : \
   chmod a+x %{?buildroot:%{buildroot}}/lib/* || : \
-  find %{buildroot} | xargs touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f --}   \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}   \
+
+%make_install() \
+  %{make_install_common} %* \
+  find %{?buildroot:%{buildroot}}/ -print0 | xargs -r0 touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || :
+
+%make_install_avx2() \
+  %{make_install_common} %* \
+  /usr/bin/clr-avx2-move.pl haswell .avx2 %{?buildroot:%{buildroot}}/ \
+  find %{?buildroot:%{buildroot}}/ -print0 | xargs -r0 touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || :
+
+%make_install_avx512() \
+  %{make_install_common} %* \
+  /usr/bin/clr-avx2-move.pl haswell/avx512_1 .avx512 %{?buildroot:%{buildroot}}/ \
+  find %{?buildroot:%{buildroot}}/ -print0 | xargs -r0 touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || :
 
 %make_install32() \
   %{__make} \\\

@@ -126,6 +126,14 @@
 	--mandir=%{_mandir} \\\
 	--infodir=%{_infodir}
 
+%cmake \
+  cmake -G "Unix Makefiles" \\\
+    -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON \\\
+    -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DLIB_SUFFIX=64 \\\
+    -DCMAKE_AR=/usr/bin/gcc-ar \\\
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
+    -DCMAKE_RANLIB=/usr/bin/gcc-ranlib
+
 %qmake() \
   qmake QMAKE_CFLAGS="$CFLAGS" \\\
       QMAKE_CXXFLAGS="$CXXFLAGS" \\\

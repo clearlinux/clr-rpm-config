@@ -266,11 +266,7 @@
     %{!?__debug_package:/usr/lib/rpm/clr/brp-strip %{__strip}} \
     /usr/lib/rpm/clr/brp-strip-static-archive %{__strip} \
     /usr/lib/rpm/clr/brp-strip-comment-note %{__strip} %{__objdump} \
-    /usr/bin/clr-python-timestamp %{buildroot}/usr/ || : \
-    /usr/lib/rpm/brp-python-bytecompile \
-    /usr/lib/rpm/clr/brp-python-hardlink \
     find %{buildroot} -print0 | xargs -0 touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \
-    /usr/bin/clr-python-timestamp %{buildroot}/usr/ || : \
     find %{buildroot} -name "*.so.avx512" | xargs -n1 -r /usr/bin/clr-python-avx512 || : \
     find %{buildroot} -name "*.so.avx2" | xargs -n1 -r /usr/bin/clr-python-avx2 || : \
     find %{buildroot}/usr/lib64/haswell/avx512_1 -name "*.so*" | xargs -n1 -r /usr/bin/clr-python-avx512 || : \

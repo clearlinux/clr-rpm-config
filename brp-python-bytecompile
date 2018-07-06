@@ -1,0 +1,39 @@
+#!/bin/bash
+
+errors_terminate=$1
+
+# If using normal root, avoid changing anything.
+if [ -z "$RPM_BUILD_ROOT" -o "$RPM_BUILD_ROOT" = "/" ]; then
+	exit 0
+fi
+
+# Figure out how deep we need to descend.  We could pick an insanely high
+# number and hope it's enough, but somewhere, somebody's sure to run into it.
+depth=`(find "$RPM_BUILD_ROOT" -type f -name "*.py" -print0 ; echo /) | \
+       xargs -0 -n 1 dirname | sed 's,[^/],,g' | sort -u | tail -n 1 | wc -c`
+if [ -z "$depth" -o "$depth" -le "1" ]; then
+	exit 0
+fi
+
+# Build checked-hash pyc files for Python 3.7+ site-packages, provided that the
+# corresponding Python binary is available to build them.
+find "$RPM_BUILD_ROOT" -type d | grep -E "/usr/lib/python3\.([7-9]|[1-9][0-9]+)$" | while read -r python_libdir
+do
+	python_binary=/usr/bin/$(basename $python_libdir)
+	if [ ! -x $python_binary ]; then
+		echo "[BYTECOMPILE] Skipping for $python_libdir ($python_binary not available)"
+		continue
+	fi
+	real_libdir=${python_libdir/$RPM_BUILD_ROOT/}
+	echo "[BYTECOMPILE] Building for $python_libdir using $python_binary"
+
+	# Generate .pyc byte-compiled files using the checked-hash invalidation
+	# mode, as this offers better integration with SWUPD.
+	$python_binary -c 'import compileall, py_compile, sys; sys.exit(not compileall.compile_dir("'"$python_libdir"'", maxlevels='"$depth"', ddir="'"$real_libdir"'", force=1, quiet=1, invalidation_mode=py_compile.PycInvalidationMode.CHECKED_HASH))'
+	if [ $? -ne 0 -a 0$errors_terminate -ne 0 ]; then
+		# One or more of the files had a syntax error
+		exit 1
+	fi
+done
+
+exit 0

@@ -134,12 +134,12 @@
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
     -DCMAKE_RANLIB=/usr/bin/gcc-ranlib
 
-%qmake() \
+%qmake \
   qmake QMAKE_CFLAGS="$CFLAGS" \\\
       QMAKE_CXXFLAGS="$CXXFLAGS" \\\
       QMAKE_LFLAGS="$LDFLAGS" \\\
       QMAKE_CFLAGS_RELEASE= \\\
-      QMAKE_CXXFLAGS_RELEASE= %*
+      QMAKE_CXXFLAGS_RELEASE=
 
 %makeinstall \
   %{__make} \\\

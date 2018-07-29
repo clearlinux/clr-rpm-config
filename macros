@@ -295,6 +295,8 @@
     rm -rf %{?buildroot:%{buildroot}}/etc/* \
     rm -rf %{?buildroot:%{buildroot}}/usr/share/factory/* \
     find %{?buildroot:%{buildroot}} -name "__pycache__" | xargs rm -rf -- \
+    [ -e /usr/bin/abidw ] && mkdir -p %{buildroot}/usr/share/abi || : \
+    [ -e /usr/bin/abidw ] && for i in %{buildroot}/usr/lib64/*.so.* ; do abidw  --out-file %{buildroot}/usr/share/abi/`basename $i`.abi --no-corpus-path --no-show-locs $i   ; done || : \
     %{?__debug_package:%{__debug_install_post}}\
     %{__arch_install_post}\
     %{__os_install_post}\

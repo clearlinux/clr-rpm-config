@@ -281,10 +281,10 @@
     /usr/lib/rpm/clr/brp-strip-comment-note %{__strip} %{__objdump} \
     /usr/lib/rpm/clr/brp-python-bytecompile \
     find %{buildroot} -print0 | xargs -0 touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \
-    find %{buildroot} -name "*.so.avx512" | xargs -n1 -r /usr/bin/clr-python-avx512 || : \
-    find %{buildroot} -name "*.so.avx2" | xargs -n1 -r /usr/bin/clr-python-avx2 || : \
-    find %{buildroot}/usr/lib64/haswell/avx512_1 -name "*.so*" | xargs -n1 -r /usr/bin/clr-python-avx512 || : \
-    find %{buildroot}/usr/lib64/haswell -name "*.so*" | xargs -n1 -r /usr/bin/clr-python-avx2 || : \
+    (find %{buildroot} -name "*.so.avx512" -print0; find %{buildroot}/usr/lib64/haswell/avx512_1 -name "*.so*" -print0) | \\\
+        xargs -0 -r /usr/bin/clr-python-avx512 %{?_smp_mflags} || : \
+    (find %{buildroot} -name "*.so.avx2" -print0; find %{buildroot}/usr/lib64/haswell -name "*.so*" -print0) | \\\
+        xargs -0 -r /usr/bin/clr-python-avx2 %{?_smp_mflags} || : \
     %{!?__jar_repack:/usr/lib/rpm/clr/brp-java-repack-jars} \
 %{nil}
 

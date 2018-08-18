@@ -89,7 +89,7 @@
 	--localstatedir=%{_localstatedir} \\\
 	--sharedstatedir=%{_sharedstatedir} \\\
 	--mandir=%{_mandir} \\\
-	--infodir=%{_infodir} \
+	--infodir=%{_infodir} || : \
   ./configure --build=%{_build} --host=%{_host} \\\
 	--target=%{_target_platform} \\\
 	--program-prefix=%{?_program_prefix} \\\

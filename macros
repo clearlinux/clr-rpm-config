@@ -128,8 +128,10 @@
 
 %cmake \
   cmake -G "Unix Makefiles" \\\
-    -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON \\\
-    -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DLIB_SUFFIX=64 \\\
+    -DBUILD_SHARED_LIBS:BOOL=ON \\\
+    -DCMAKE_INSTALL_PREFIX=%{_prefix} \\\
+    -DCMAKE_INSTALL_SBINDIR=%{_sbindir} \\\
+    -DCMAKE_INSTALL_LIBDIR=%{_libdir} -DLIB_INSTALL_DIR=%{_libdir} -DLIB_SUFFIX=64 \\\
     -DCMAKE_AR=/usr/bin/gcc-ar \\\
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
     -DCMAKE_RANLIB=/usr/bin/gcc-ranlib

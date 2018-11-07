@@ -284,10 +284,11 @@
     /usr/lib/rpm/clr/brp-strip-comment-note %{__strip} %{__objdump} \
     /usr/lib/rpm/clr/brp-python-bytecompile \
     find %{buildroot} -print0 | xargs -0 touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \
+    RPM_XARGS_PFLAG=-P`getconf _NPROCESSORS_ONLN` \
     (find %{buildroot} -name "*.so.avx512" -print0; find %{buildroot}/usr/lib64/haswell/avx512_1 -name "*.so*" -print0) | \\\
-        xargs -0 -r /usr/bin/clr-python-avx512 %{?_smp_mflags} || : \
+        xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -5 \
     (find %{buildroot} -name "*.so.avx2" -print0; find %{buildroot}/usr/lib64/haswell \! -path "/usr/lib64/haswell/avx512_1/*" -name "*.so*" -print0) | \\\
-        xargs -0 -r /usr/bin/clr-python-avx2 %{?_smp_mflags} || : \
+        xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -2 \
     %{!?__jar_repack:/usr/lib/rpm/clr/brp-java-repack-jars} \
 %{nil}
 
@@ -298,8 +299,12 @@
     rm -rf %{?buildroot:%{buildroot}}/etc/* \
     rm -rf %{?buildroot:%{buildroot}}/usr/share/factory/* \
     find %{?buildroot:%{buildroot}} -name "__pycache__" | xargs rm -rf -- \
-    [ -e /usr/bin/abidw ] && mkdir -p %{buildroot}/usr/share/abi || : \
-    [ -e /usr/bin/abidw ] && for i in %{buildroot}/usr/lib64/*.so.* ; do abidw  --out-file %{buildroot}/usr/share/abi/`basename $i`.abi --no-corpus-path --no-show-locs $i   ; done || : \
+    RPM_XARGS_PFLAG=-P`getconf _NPROCESSORS_ONLN` \
+    if [ -e /usr/bin/abidw ]; then \
+       mkdir -p %{buildroot}/usr/share/abi \
+       find %{buildroot}/usr/lib64/ -name '*.so*' -maxdepth 1 -type f -print0 | \\\
+           xargs -0rtn1 $RPM_XARGS_PFLAG bash -c '/usr/bin/abidw --no-corpus-path --no-show-locs --out-file ${0/lib64/share\/abi}.abi $0'\
+    fi\
     %{?__debug_package:%{__debug_install_post}}\
     %{__arch_install_post}\
     %{__os_install_post}\

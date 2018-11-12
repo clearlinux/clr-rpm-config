@@ -301,7 +301,7 @@
         xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -2 \
     if [ -e /usr/bin/abidw ]; then \
        mkdir -p %{buildroot}/usr/share/abi \
-       find %{buildroot}/usr/lib64/ -name '*.so*' -maxdepth 1 -type f -print0 | \\\
+       find %{buildroot}/usr/lib64/ -regex '.*\.so\.[0-9]+$' -maxdepth 1 -print0 | \\\
            xargs -0rtn1 $RPM_XARGS_PFLAG bash -c '/usr/bin/abidw --no-corpus-path --no-show-locs --out-file ${0/lib64/share\/abi}.abi $0'\
     fi\
     %{?__debug_package:%{__debug_install_post}}\

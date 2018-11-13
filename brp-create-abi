@@ -1,0 +1,22 @@
+#!/bin/bash
+lib=$1
+outdir=${lib%/*}
+outdir=${outdir/lib64/share\/abi}
+
+test -e /usr/bin/abidw || exit 0
+test -e /usr/bin/readelf || exit 0
+
+if [ -L "$lib" ]; then
+    # Skip symlinks, we operate only on the actual library file
+    exit 0
+fi
+
+# Get the library SONAME to calculate the file path
+soname=`/usr/bin/readelf -d "$lib" 2>/dev/null | perl -n -e 'print $1 if /\(SONAME\) .*\[(.*)\]/'`
+if [ -z "$soname" ]; then
+    echo >&2 "$lib: library has no SONAME, refusing to create ABI dump"
+    exit 0
+fi
+
+mkdir -p "$outdir"
+exec /usr/bin/abidw --no-corpus-path --no-show-locs --out-file "$outdir/$soname.abi" "$lib"

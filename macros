@@ -300,7 +300,7 @@
     (find %{buildroot} -name "*.so.avx2" -print0; find %{buildroot}/usr/lib64/haswell \! -path "/usr/lib64/haswell/avx512_1/*" -name "*.so*" -print0) | \\\
         xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -2 \
     find %{buildroot}/usr/lib64/ -name '*.so*' -maxdepth 1 -type f -print0 | \\\
-       xargs -0rtn1 $RPM_XARGS_PFLAG /usr/lib/rpm/clr/brp-create-abi\
+       xargs -0rtn1 $RPM_XARGS_PFLAG /usr/lib/rpm/clr/brp-create-abi > abifiles.list\
     %{?__debug_package:%{__debug_install_post}}\
     %{__arch_install_post}\
     %{__os_install_post}\
@@ -323,6 +323,18 @@ package or when debugging this package.\
 %files debuginfo -f debugfiles.list\
 %defattr(-,root,root)\
 %endif\
+%{nil}
+
+#       Template for abi information sub-package.
+%abi_package \
+%package abi \
+Summary: abi components for package %{name}\
+Group: Default\
+AutoReqProv: 0\
+%description abi\
+This package provides abi files for package %{name}.\
+%files abi -f abifiles.list\
+%defattr(-,root,root)\
 %{nil}
 
 # Bad hack to set $LANG to a UTF-8 capable locale during all RPM builds
@@ -351,6 +363,7 @@ PATH="/usr/lib64/ccache/bin:/usr/local/bin:/usr/bin"; export PATH ; \
 %{nil}
 
 %install %{?_enable_debug_packages:%{?buildsubdir:%{debug_package}}}\
+%{abi_package}\
 %%install\
 LANG=en_US.UTF-8\
 export LANG\

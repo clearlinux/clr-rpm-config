@@ -12,12 +12,26 @@ if [ -L "$lib" ]; then
     exit 0
 fi
 
+check_lib() {
+    if [ -z "$soname" ]; then
+        echo >&2 "$lib: library has no SONAME, refusing to create ABI dump"
+        return 1
+    fi
+
+    # do not process libraries that are compiled from fortran, until the
+    # upstream issue is fixed: https://sourceware.org/bugzilla/show_bug.cgi?id=23905
+    local fortran_dep=$(readelf -d "${lib}" | grep \(NEEDED\) | grep libgfortran\.so)
+    if [ -n "${fortran_dep}" ]; then
+        1>&2 echo "$lib: suspect fortran, refusing to create ABI dump"
+        return 1
+    fi
+
+}
+
 # Get the library SONAME to calculate the file path
 soname=`/usr/bin/readelf -d "$lib" 2>/dev/null | perl -n -e 'print $1 if /\(SONAME\) .*\[(.*)\]/'`
-if [ -z "$soname" ]; then
-    echo >&2 "$lib: library has no SONAME, refusing to create ABI dump"
-    exit 0
-fi
+
+check_lib || exit 0
 
 out=$outdir/$soname.abi
 

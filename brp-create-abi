@@ -33,14 +33,22 @@ check_lib || exit 0
 
 out=$outdir/$soname.abi
 
-# Print the name of the output file (sans build root)
-if [ -z "$RPM_BUILD_ROOT" -o "$RPM_BUILD_ROOT" = "/" ]; then
-    echo "$out"
-else
-    echo "${out#$RPM_BUILD_ROOT}"
-fi
-
 mkdir -p "$outdir"
-exec /usr/bin/abidw --no-corpus-path --no-show-locs \
+
+/usr/bin/abidw --no-corpus-path --no-show-locs \
      --clr-max-runtime $RPM_MAX_ABIDW_TIME \
      --out-file "$out" "$lib"
+r=$?
+if [ $r -eq 0 ]; then
+    # Print the name of the output file (sans build root)
+    if [ -z "$RPM_BUILD_ROOT" -o "$RPM_BUILD_ROOT" = "/" ]; then
+        echo "$out"
+    else
+        echo "${out#$RPM_BUILD_ROOT}"
+    fi
+elif  [ $r -eq 124 ]; then
+    # If the tool times out, ignore the issue
+    echo >&2  "$lib: timed out parsing, skipping"
+    r=0
+fi
+exit $r

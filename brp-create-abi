@@ -20,12 +20,10 @@ check_lib() {
 
     # do not process libraries that are compiled from fortran, until the
     # upstream issue is fixed: https://sourceware.org/bugzilla/show_bug.cgi?id=23905
-    local fortran_dep=$(readelf -d "${lib}" | grep \(NEEDED\) | grep libgfortran\.so)
-    if [ -n "${fortran_dep}" ]; then
+    if readelf -d "${lib}" | grep -q \(NEEDED\).*libgfortran\.so; then
         1>&2 echo "$lib: suspect fortran, refusing to create ABI dump"
         return 1
     fi
-
 }
 
 # Get the library SONAME to calculate the file path

@@ -178,6 +178,7 @@
   rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
   find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
   find %{?buildroot:%{buildroot}} -regex ".*\\.pyo$" | xargs rm -f -- \
+  [ -d %{?buildroot:%{buildroot}}/etc/dbus-1 ] && mkdir -p %{?buildroot:%{buildroot}}/usr/share/dbus-1  || : \
   [ -d %{?buildroot:%{buildroot}}/etc/dbus-1 ] && mv %{?buildroot:%{buildroot}}/etc/dbus-1/* %{?buildroot:%{buildroot}}/usr/share/dbus-1/  || : \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \

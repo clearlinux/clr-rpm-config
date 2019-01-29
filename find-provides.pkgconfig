@@ -14,9 +14,9 @@ case "${filename}" in
 		needs_pkgconfig=true
 	done
 	# The dependency on the pkgconfig package itself.
-	if $needs_pkgconfig ; then
-		echo pkgconfig
-	fi
+	#if $needs_pkgconfig ; then
+	#	echo pkgconfig
+	#fi
 	;;
 esac
 done

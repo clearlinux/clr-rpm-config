@@ -103,4 +103,4 @@ if [ ! -z "$JARS" ]; then
 		rm -rf $RPM_BUILD_ROOT/tmp
 	fi
 fi
-echo $JARS | xargs touch -h -d "@${SOURCE_DATE_EPOCH:-1484271242}" || : \
+echo $JARS | xargs touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798}" || : \

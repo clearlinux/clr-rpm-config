@@ -293,6 +293,7 @@
 
 %__spec_install_post\
     rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
+    test -z "`find %{?buildroot:%{buildroot}}/etc -type f`" \
     rm -rf %{?buildroot:%{buildroot}}/etc/* \
     rm -rf %{?buildroot:%{buildroot}}/usr/share/factory/* \
     find %{?buildroot:%{buildroot}} -name "__pycache__" | xargs rm -rf -- \

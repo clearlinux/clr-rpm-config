@@ -8,5 +8,11 @@ while read instfile ; do
 		echo "debuginfo(build-id) = $BUILDID"
 	    fi
 	    ;;
+	*/usr/share/debug/.build-id/*.debug)
+	    if [ -f "$instfile" ] ; then
+		BUILDID=$(echo $instfile | sed -ne 's|.*/usr/share/debug/.build-id/\([0-9a-f]*\)/\([0-9a-f]*\)\.debug|\1\2|p')
+		echo "debuginfo(build-id) = $BUILDID"
+	    fi
+	    ;;
     esac
 done

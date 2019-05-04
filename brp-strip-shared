@@ -14,6 +14,7 @@ fi
 # our libraries are not (should not be, at least) +x.
 for f in `find $RPM_BUILD_ROOT -type f -a -exec file {} \; | \
         grep -v "^${RPM_BUILD_ROOT}/\?usr/lib/debug"  | \
+        grep -v "^${RPM_BUILD_ROOT}/\?usr/shared/debug"  | \
 	grep ' shared object,' | \
 	sed -n -e 's/^\(.*\):[ 	]*ELF.*, not stripped/\1/p'`; do
 	$STRIP -p --strip-dwo  "$f"

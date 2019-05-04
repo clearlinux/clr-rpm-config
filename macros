@@ -287,8 +287,6 @@
     /usr/lib/rpm/clr/brp-python-bytecompile \
     find %{buildroot} -print0 | xargs -0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || : \
     %{!?__jar_repack:/usr/lib/rpm/clr/brp-java-repack-jars} \
-    [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mkdir -p  %{?buildroot:%{buildroot}}/usr/share || : \
-    [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mv  %{?buildroot:%{buildroot}}/usr/lib/debug  %{?buildroot:%{buildroot}}/usr/share || : \
 %{nil}
 
 #    /usr/lib/rpm/clr/brp-implant-ident-static
@@ -311,6 +309,8 @@
     find %{buildroot}/usr/lib64/ -name '*.so*' -maxdepth 1 -type f -print0 | \\\
        xargs -0rtn1 $RPM_XARGS_PFLAG /usr/lib/rpm/clr/brp-create-abi | sort -u > abifiles.list\
     %{?__debug_package:%{__debug_install_post}}\
+    [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mkdir -p  %{?buildroot:%{buildroot}}/usr/share || : \
+    [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mv  %{?buildroot:%{buildroot}}/usr/lib/debug  %{?buildroot:%{buildroot}}/usr/share || : \
     %{__arch_install_post}\
     %{__os_install_post}\
 %{nil}

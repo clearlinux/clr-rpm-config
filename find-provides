@@ -11,7 +11,7 @@ fi
 [ -z "$OBJDUMP" ] && OBJDUMP=objdump
 
 filelist=`sed "s/['\"]/\\\&/g"`
-debuginfolist=($(printf "%s\n" "${filelist[@]}" | grep "/usr/lib/debug/"))
+debuginfolist=($(printf "%s\n" "${filelist[@]}" | grep "/usr/lib/debug/\|/usr/share/debug/"))
 
 solist=$(echo $filelist | grep "\\.so" | grep -v "^/lib/ld.so" | \
 	xargs file -L 2>/dev/null | grep "ELF.*shared object" | cut -d: -f1)

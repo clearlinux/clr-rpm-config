@@ -311,6 +311,7 @@
     %{?__debug_package:%{__debug_install_post}}\
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mkdir -p  %{?buildroot:%{buildroot}}/usr/share || : \
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mv  %{?buildroot:%{buildroot}}/usr/lib/debug  %{?buildroot:%{buildroot}}/usr/share || : \
+    [ -d  %{?buildroot:%{buildroot}}/usr/src/debug ] && mv %{?buildroot:%{buildroot}}/usr/src/debug %{?buildroot:%{buildroot}}/usr/share/debug/src || : \
     %{__arch_install_post}\
     %{__os_install_post}\
 %{nil}

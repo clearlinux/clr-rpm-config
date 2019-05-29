@@ -312,6 +312,8 @@
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mkdir -p  %{?buildroot:%{buildroot}}/usr/share || : \
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mv  %{?buildroot:%{buildroot}}/usr/lib/debug  %{?buildroot:%{buildroot}}/usr/share || : \
     [ -d  %{?buildroot:%{buildroot}}/usr/src/debug ] && mv %{?buildroot:%{buildroot}}/usr/src/debug %{?buildroot:%{buildroot}}/usr/share/debug/src || : \
+    [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug.force ] && mv  %{?buildroot:%{buildroot}}/usr/lib/debug.force  %{?buildroot:%{buildroot}}/usr/lib/debug || : \
+    [ -d  %{?buildroot:%{buildroot}}/usr/src/debug.force ] && mv %{?buildroot:%{buildroot}}/usr/src/debug.force %{?buildroot:%{buildroot}}/usr/src/debug || : \
     %{__arch_install_post}\
     %{__os_install_post}\
 %{nil}

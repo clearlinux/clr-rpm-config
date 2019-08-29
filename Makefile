@@ -25,8 +25,9 @@ tag-archive:
 	git tag -a $(VERSION)
 
 create-archive:
-	git archive --format=tar.gz --prefix=clr-rpm-config-$(VERSION)/ HEAD > clr-rpm-config-$(VERSION).tar.gz
-	@echo "The final archive is in $(NAME)-$(VERSION).tar.gz"
+	git config tar.tar.xz.command "xz -c"
+	git archive --format=tar.xz --prefix=clr-rpm-config-$(VERSION)/ HEAD > clr-rpm-config-$(VERSION).tar.xz
+	@echo "The final archive is in $(NAME)-$(VERSION).tar.xz"
 
 archive: tag-archive create-archive
 .PHONY: dist

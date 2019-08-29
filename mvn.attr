@@ -1,0 +1,2 @@
+%__mvn_provides	%{_rpmconfigdir}/clr/mvn.prov
+%__mvn_path	^/usr/share/java/\.m2/repository/.*\.(jar|pom|signature)$

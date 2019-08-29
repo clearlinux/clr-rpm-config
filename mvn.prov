@@ -1,0 +1,44 @@
+#!/usr/bin/gawk -f
+
+{
+  # Preprocess filename:
+  # * Deduplicate forward slashes
+  # * Strip the Maven repository path prefix
+  # * Create an array of path components
+  gsub(/\/\/+/, "/")
+  sub("^.*/usr/share/java/\\.m2/repository/", "")
+  split($0, parts, /\//)
+
+  # Begin the provider name
+  printf("mvn(")
+
+  # Specify group ID
+  artifact = length(parts) - 2
+  i = 1
+  for (; i < artifact - 1; i++) {
+    printf("%s.", parts[i])
+  }
+  printf("%s:", parts[i])
+
+  # Specify artifact ID
+  printf("%s:", parts[artifact])
+
+  # Specify artifact type
+  if ($0 ~ /\.jar$/) {
+    printf("jar")
+  } else if ($0 ~ /\.pom$/) {
+    printf("pom")
+  } else if ($0 ~ /\.signature$/) {
+    printf("signature")
+  }
+
+  # End the provider name
+  printf(")")
+
+  # Specify provider version, too
+  ver = length(parts) - 1
+  printf(" = %s\n", parts[ver])
+}
+
+
+# vi: ft=awk sw=2 sts=2 et

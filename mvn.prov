@@ -53,6 +53,10 @@
     classifier = ":" classifier
   }
 
+  # Replace hyphens with dots in the version; RPM allows a single hyphen in a
+  # provider string, but only to indicate "VERSION-RELEASE".
+  gsub(/-/, ".", ver)
+
   printf("mvn(%s:%s:%s%s) = %s\n", group, artifact, type, classifier, ver)
 }
 

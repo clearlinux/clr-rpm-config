@@ -9,35 +9,51 @@
   sub("^.*/usr/share/java/\\.m2/repository/", "")
   split($0, parts, /\//)
 
-  # Begin the provider name
-  printf("mvn(")
+  # Extract the rightmost components: file name, version, and artifact ID
+  file = parts[length(parts)]
+  ver = parts[length(parts) - 1]
+  artifact_idx = length(parts) - 2
+  artifact = parts[artifact_idx]
 
-  # Specify group ID
-  artifact = length(parts) - 2
+  # Construct group ID
   i = 1
-  for (; i < artifact - 1; i++) {
-    printf("%s.", parts[i])
+  group = ""
+  for (; i < artifact_idx - 1; i++) {
+    group = sprintf("%s%s.", group, parts[i])
   }
-  printf("%s:", parts[i])
+  group = sprintf("%s%s", group, parts[i])
 
-  # Specify artifact ID
-  printf("%s:", parts[artifact])
-
-  # Specify artifact type
-  if ($0 ~ /\.jar$/) {
-    printf("jar")
-  } else if ($0 ~ /\.pom$/) {
-    printf("pom")
-  } else if ($0 ~ /\.signature$/) {
-    printf("signature")
+  # Detect artifact type
+  type = ""
+  if (file ~ /\.jar$/) {
+    type = "jar"
+  } else if (file ~ /\.pom$/) {
+    type = "pom"
+  } else if (file ~ /\.signature$/) {
+    type = "signature"
   }
 
-  # End the provider name
-  printf(")")
+  # Detect classifier, if present
+  classifier = ""
+  regexp = sprintf("^%s-%s(-.+)?\\.%s$", artifact, ver, type)
+  ret = match(file, regexp, capture)
+  if (ret) {
+    len = capture[1, "length"]
+    if (len != 0) {
+      # skip the separating hyphen
+      start = capture[1, "start"] + 1
+      len = len - 1
+      classifier = substr(file, start, len)
+    }
+  }
 
-  # Specify provider version, too
-  ver = length(parts) - 1
-  printf(" = %s\n", parts[ver])
+  # Since classifiers are optional, make sure to add the
+  # separating ':' if one is defined.
+  if (classifier) {
+    classifier = ":" classifier
+  }
+
+  printf("mvn(%s:%s:%s%s) = %s\n", group, artifact, type, classifier, ver)
 }
 
 

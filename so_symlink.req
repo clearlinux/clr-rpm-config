@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# --- Alpha does not mark 64bit dependencies
+case `uname -m` in
+  alpha*)	mark64="" ;;
+  *)		mark64="()(64bit)" ;;
+esac
+
+while read f; do
+    soname=$(objdump -p $f | awk '/SONAME/ {print $2}')
+    test "$soname" != "" || continue
+    lib64=`if file -L $f 2>/dev/null | \
+	grep "ELF 64-bit" >/dev/null; then echo "$mark64"; fi`
+    echo "$soname$lib64"
+done
+

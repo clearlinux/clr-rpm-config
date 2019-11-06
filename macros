@@ -28,11 +28,15 @@
 #       Default fuzz level for %patch in spec file.
 %_default_patch_fuzz    2
 
+# avoid aborting with packages without debugfiles.list
+%_empty_manifest_terminate_build 0
+
 #==============================================================================
 # ---- configure and makeinstall.
 #
 %configure \
   CFLAGS="${CFLAGS:-%optflags} -fPIC" ; export CFLAGS ; \
+  LDFLAGS="$LDFLAGS -Wl,--build-id=sha1" ; export LDFLAGS ; \
   ./configure --build=%{_build} --host=%{_host} \\\
 	--target=%{_target_platform} \\\
 	--program-prefix=%{?_program_prefix} \\\
@@ -305,7 +309,7 @@
         xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -5 \
     (find %{buildroot} -name "*.so.avx2" -print0; find %{buildroot}/usr/lib64/haswell \! -path "/usr/lib64/haswell/avx512_1/*" -name "*.so*" -print0) | \\\
         xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -2 \
-    find %{buildroot}/usr/lib64/ -maxdepth 1 -name '*.so*' -type f -print0 | \\\
+    find %{buildroot}/usr/lib32/ %{buildroot}/usr/lib64/ -maxdepth 2 -name '*.so*' -type f -print0 | \\\
        xargs -0rtn1 $RPM_XARGS_PFLAG /usr/lib/rpm/clr/brp-create-abi | sort -u > abifiles.list\
     %{?__debug_package:%{__debug_install_post}}\
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mkdir -p  %{?buildroot:%{buildroot}}/usr/share || : \
@@ -428,7 +432,7 @@ posix.setenv("RPMBUILD_SOURCEDIR",rpm.expand("%?_sourcedir"));
 %__find_provides        /usr/lib/rpm/clr/find-provides
 %__find_requires        /usr/lib/rpm/clr/find-requires
 
-%__global_cflags	-O2 -g -feliminate-unused-debug-types -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -ftree-vectorize -ftree-slp-vectorize -Wl,--enable-new-dtags -fcf-protection=return
+%__global_cflags	-O2 -g -feliminate-unused-debug-types -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -ftree-vectorize -ftree-slp-vectorize -Wl,--enable-new-dtags -fcf-protection=return -Wl,--build-id=sha1
 
 
 # Disable lookups

@@ -25,6 +25,9 @@
 %_fmoddir		%{_libdir}/gfortran/modules
 %_enable_debug_packages 1
 
+# creates the build-id only for debug elf objects
+%_build_id_links alldebug
+
 #       Default fuzz level for %patch in spec file.
 %_default_patch_fuzz    2
 

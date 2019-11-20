@@ -413,7 +413,7 @@ rm -rf %{?buildroot:%{buildroot}} \
 %_missing_doc_files_terminate_build    1
 #
 # Should missing buildids terminate a build?
-%_missing_build_ids_terminate_build    1
+%_missing_build_ids_terminate_build    0
 
 #
 # Should unpackaged files in a build root terminate a build?

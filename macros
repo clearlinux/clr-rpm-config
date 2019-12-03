@@ -298,7 +298,7 @@
 #    /usr/lib/rpm/clr/brp-implant-ident-static
 
 %__spec_install_post\
-    rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
+    %{!?keepinfodir:rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir} \
     test -z "`find  %{?buildroot:%{buildroot}}  -path 'etc/*' ! -type d`" \
     rm -rf %{?buildroot:%{buildroot}}/etc/* \
     rm -rf %{?buildroot:%{buildroot}}/usr/share/factory/* \

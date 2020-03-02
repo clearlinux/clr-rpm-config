@@ -222,6 +222,16 @@
   /usr/bin/clr-avx2-move.pl haswell/avx512_1 .avx512 %{?buildroot:%{buildroot}}/ \
   find %{?buildroot:%{buildroot}}/ -print0 | xargs -r0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || :
 
+%make_install_openmpi() \
+  %{make_install_command} %* \
+  rm -f %{?buildroot:%{buildroot}}$MPI_ROOT/share/info/dir \
+  rm -f %{?buildroot:%{buildroot}}$MPI_LIB/perl5/*/*/perllocal.pod \
+  find %{?buildroot:%{buildroot}}$MPI_ROOT -regex ".*\\.la$" | xargs rm -f -- \
+  find %{?buildroot:%{buildroot}}$MPI_ROOT -regex ".*\\.pyo$" | xargs rm -f -- \
+  %{!?keepstatic:find %{?buildroot:%{buildroot}}$MPI_ROOT -regex ".*\\.a$" | xargs rm -f --} \
+  chmod a+x %{?buildroot:%{buildroot}}$MPI_BIN/* || : \
+  chmod a+x %{?buildroot:%{buildroot}}$MPI_LIB/* || :
+
 %make_install32() \
   %{__make} \\\
 	DESTDIR=%{?buildroot:%{buildroot}} \\\

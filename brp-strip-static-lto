@@ -1,0 +1,47 @@
+#!/bin/bash -e
+# Remove LTO symbols from static libraries
+
+
+if [ -z "$RPM_BUILD_ROOT" -o "$RPM_BUILD_ROOT" = "/" ]; then
+    exit 0
+fi
+
+[ -z "$OBJCOPY" -a -n "$1" ] && OBJCOPY="$1"
+[ -z "$OBJCOPY" ] && OBJCOPY=objcopy
+
+# Strip LTO from static libraries.
+cd $RPM_BUILD_ROOT
+find . -type f -name '*.a' \! \( -path './usr/lib/debug/*' -o -path './usr/share/debug/*' \) -print0 | while read -d "" f; do
+    type=`file "$f"`
+    if [[ "$type" != *"current ar archive" ]]; then
+        continue
+    fi
+
+    if rm "$f.no-strip-lto" 2>/dev/null; then
+        printf "%s: not stripping LTO symbols\n" "$f"
+        continue
+    fi
+
+    oldsize=`stat -c %s "$f"`
+    nm --defined "$f" > /tmp/nm-old
+    mv "$f" "$f.bak"
+    $OBJCOPY -R '.gnu.lto*' "$f.bak" "$f"
+    touch -r "$f.bak" "$f"
+    rm -f "$f.bak"
+
+    newsize=`stat -c %s "$f"`
+    if [[ "$oldsize" = "$newsize" ]]; then
+        # nothing changed
+        printf "%s: no LTO symbols found\n" "$f"
+        rm /tmp/nm-old
+    else
+        # verify symbol list
+        diff=`nm --defined "$f" | comm -3 /tmp/nm-old -`
+        rm /tmp/nm-old
+        if [[ -n "$diff" ]]; then
+            printf "%s: error: symbols changed after stripping\n" "$f" >&2
+            exit 1
+        fi
+        printf "%s: stripped LTO symbols\n" "$f"
+    fi
+done

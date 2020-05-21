@@ -299,6 +299,7 @@
 %__os_install_post    \
     %{!?__debug_package:/usr/lib/rpm/clr/brp-strip %{__strip}} \
     /usr/lib/rpm/clr/brp-strip-static-archive %{__strip} \
+    /usr/lib/rpm/clr/brp-strip-static-lto %{__objcopy} \
     /usr/lib/rpm/clr/brp-strip-comment-note %{__strip} %{__objdump} \
     /usr/lib/rpm/clr/brp-python-bytecompile \
     find %{buildroot} -print0 | xargs -0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || : \

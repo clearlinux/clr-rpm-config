@@ -1,3 +1,3 @@
 %__so_symlink_requires          %{_rpmconfigdir}/clr/so_symlink.req
 %__so_symlink_path		^/usr/lib(32|64)?/lib[^/]*\\.so
-%__so_symlinkf_magic		symbolic link.*$
+%__so_symlink_magic		symbolic link.*$

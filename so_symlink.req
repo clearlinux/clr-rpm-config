@@ -7,7 +7,7 @@ case `uname -m` in
 esac
 
 while read f; do
-    soname=$(objdump -p $f | awk '/SONAME/ {print $2}')
+    soname=$(objdump -p $f | awk '$1 ~ /^SONAME$/ && $2 ~ /^lib/ {print $2}')
     test "$soname" != "" || continue
     lib64=`if file -L $f 2>/dev/null | \
 	grep "ELF 64-bit" >/dev/null; then echo "$mark64"; fi`

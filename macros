@@ -324,7 +324,7 @@
     (find %{buildroot} -name "*.so.avx2" -print0; find %{buildroot}/usr/lib64/haswell \! -path "/usr/lib64/haswell/avx512_1/*" -name "*.so*" -print0) | \\\
         xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -2 \
     find %{buildroot}/usr/lib32/ %{buildroot}/usr/lib64/ -maxdepth 2 -name '*.so*' -type f -print0 | \\\
-       xargs -0rtn1 $RPM_XARGS_PFLAG /usr/lib/rpm/clr/brp-create-abi | sort -u > abifiles.list\
+       xargs -0rtn1 $RPM_XARGS_PFLAG /usr/lib/rpm/clr/brp-create-abi | sort -u > "%{_builddir}/%{?buildsubdir}"/abifiles.list\
     %{?__debug_package:%{__debug_install_post}}\
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mkdir -p  %{?buildroot:%{buildroot}}/usr/share || : \
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mv  %{?buildroot:%{buildroot}}/usr/lib/debug  %{?buildroot:%{buildroot}}/usr/share || : \

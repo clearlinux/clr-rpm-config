@@ -1,0 +1,4 @@
+%__mingw_requires	%{_rpmconfigdir}/elfdeps --requires %{?__filter_GLIBC_PRIVATE:--filter-private}
+%__mingw_magic		ELF (32|64)-bit.*$
+%__mingw_path		^/usr/(mingw|x86_64-generic-linux/x86_64-w64-mingw32)/lib/
+%__mingw_flags		exeonly,magic_and_path

@@ -1,0 +1,4 @@
+%__openmpi_requires	%{_rpmconfigdir}/elfdeps --requires %{?__filter_GLIBC_PRIVATE:--filter-private}
+%__openmpi_magic	ELF (32|64)-bit.*$
+%__openmpi_path		^/usr/lib64/openmpi/
+%__openmpi_flags	exeonly,magic_and_path

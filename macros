@@ -296,14 +296,35 @@
 
 %__arch_install_post   /usr/lib/rpm/check-buildroot
 
+# Standard brp-macro naming:
+# convert all '-' in basename to '_', add two leading underscores.
+
+# brp macros from the 'rpm' project follow
+%__brp_compress %{_rpmconfigdir}/brp-compress
+%__brp_java_gcjcompile %{_rpmconfigdir}/brp-java-bytecompile
+#__brp_python_bytecompile %{_rpmconfigdir}/brp-python-bytecompile "" "%{?_python_bytecompile_errors_terminate_build}" "%{?_python_bytecompile_extra}"
+%__brp_python_bytecompile %{_rpmconfigdir}/clr/brp-python-bytecompile
+#__brp_strip %{_rpmconfigdir}/brp-strip %{__strip}
+%__brp_strip %{!?__debug_package:%{_rpmconfigdir}/clr/brp-strip %{__strip}}
+#__brp_strip_comment_note %{_rpmconfigdir}/brp-strip-comment-note %{__strip} %{__objdump}
+%__brp_strip_comment_note %{_rpmconfigdir}/clr/brp-strip-comment-note %{__strip} %{__objdump}
+#__brp_strip_shared %{_rpmconfigdir}/brp-strip-shared
+%__brp_strip_shared %{_rpmconfigdir}/clr/brp-strip-shared
+#__brp_strip_static_archive %{_rpmconfigdir}/brp-strip-static-archive %{__strip}
+%__brp_strip_static_archive %{_rpmconfigdir}/clr/brp-strip-static-archive %{__strip}
+
+# brp macros specific to Clear Linux OS follow
+%__brp_strip_static_lto %{_rpmconfigdir}/clr/brp-strip-static-lto %{__objcopy}
+%__brp_java_repack_jars %{!?__jar_repack:%{_rpmconfigdir}/clr/brp-java-repack-jars}
+
 %__os_install_post    \
-    %{!?__debug_package:/usr/lib/rpm/clr/brp-strip %{__strip}} \
-    /usr/lib/rpm/clr/brp-strip-static-archive %{__strip} \
-    /usr/lib/rpm/clr/brp-strip-static-lto %{__objcopy} \
-    /usr/lib/rpm/clr/brp-strip-comment-note %{__strip} %{__objdump} \
-    /usr/lib/rpm/clr/brp-python-bytecompile \
+    %{?__brp_strip} \
+    %{?__brp_strip_static_archive} \
+    %{?__brp_strip_static_lto} \
+    %{?__brp_strip_comment_note} \
+    %{?__brp_python_bytecompile} \
     find %{buildroot} -print0 | xargs -0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || : \
-    %{!?__jar_repack:/usr/lib/rpm/clr/brp-java-repack-jars} \
+    %{?__brp_java_repack_jars} \
 %{nil}
 
 #    /usr/lib/rpm/clr/brp-implant-ident-static

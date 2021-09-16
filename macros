@@ -183,7 +183,6 @@
   rm -rf %{?buildroot:%{buildroot}}/usr/lib64/haswell/avx512_1/pkgconfig \
   rm -rf %{?buildroot:%{buildroot}}/usr/local \
   rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
-  find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
   [ -d %{?buildroot:%{buildroot}}/etc/dbus-1 ] && mkdir -p %{?buildroot:%{buildroot}}/usr/share/dbus-1  || : \
   [ -d %{?buildroot:%{buildroot}}/etc/dbus-1 ] && mv %{?buildroot:%{buildroot}}/etc/dbus-1/* %{?buildroot:%{buildroot}}/usr/share/dbus-1/  || : \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
@@ -201,7 +200,6 @@
   [ -d %{?buildroot:%{buildroot}}/sbin ] && rmdir %{?buildroot:%{buildroot}}/sbin || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && rmdir %{?buildroot:%{buildroot}}/bin || : \
   chmod a+x %{?buildroot:%{buildroot}}{/usr,}/lib{,32,64}/*.so* || : \
-  %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f --}   \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}
 
 %make_install() \
@@ -222,7 +220,6 @@
   %{make_install_command} %* \
   rm -f %{?buildroot:%{buildroot}}$MPI_ROOT/share/info/dir \
   rm -f %{?buildroot:%{buildroot}}$MPI_LIB/perl5/*/*/perllocal.pod \
-  find %{?buildroot:%{buildroot}}$MPI_ROOT -regex ".*\\.la$" | xargs rm -f -- \
   %{!?keepstatic:find %{?buildroot:%{buildroot}}$MPI_ROOT -regex ".*\\.a$" | xargs rm -f --} \
   chmod a+x %{?buildroot:%{buildroot}}$MPI_BIN/* || : \
   chmod a+x %{?buildroot:%{buildroot}}$MPI_LIB/* || :
@@ -238,7 +235,6 @@
   install %* \
   rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
   rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
-  find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
@@ -255,7 +251,6 @@
   [ -d %{?buildroot:%{buildroot}}/bin ] && rmdir %{?buildroot:%{buildroot}}/bin || : \
   chmod a+x %{?buildroot:%{buildroot}}/usr/lib32/* || : \
   chmod a+x %{?buildroot:%{buildroot}}/lib/* || : \
-  %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f --}   \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}
 
 %_smp_mflags %([ -z "$RPM_BUILD_NCPUS" ] \\\
@@ -304,6 +299,7 @@
 %__brp_strip_comment_note %{_rpmconfigdir}/clr/brp-strip-comment-note %{__strip} %{__objdump}
 #__brp_strip_static_archive %{_rpmconfigdir}/brp-strip-static-archive %{__strip}
 %__brp_strip_static_archive %{_rpmconfigdir}/clr/brp-strip-static-archive %{__strip}
+%__brp_remove_la_files %{_rpmconfigdir}/brp-remove-la-files
 
 # brp macros specific to Clear Linux OS follow
 %__brp_strip_static_lto %{_rpmconfigdir}/clr/brp-strip-static-lto %{__objcopy}
@@ -318,6 +314,7 @@
     %{?__brp_strip_comment_note} \
     %{?__brp_python_bytecompile} \
     %{?__brp_remove_python_pyo} \
+    %{?__brp_remove_la_files} \
     %{?__brp_set_epoch_timestamp} \
     %{?__brp_java_repack_jars} \
 %{nil}

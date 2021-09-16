@@ -294,7 +294,7 @@
 #	Expanded at end of %install scriptlet.
 #
 
-%__arch_install_post   /usr/lib/rpm/check-buildroot
+%__arch_install_post   %{_rpmconfigdir}/check-buildroot
 
 # Standard brp-macro naming:
 # convert all '-' in basename to '_', add two leading underscores.
@@ -327,7 +327,7 @@
     %{?__brp_java_repack_jars} \
 %{nil}
 
-#    /usr/lib/rpm/clr/brp-implant-ident-static
+#    %{_rpmconfigdir}/clr/brp-implant-ident-static
 
 %__spec_install_post\
     %{!?keepinfodir:rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir} \
@@ -345,7 +345,7 @@
     (find %{buildroot} -name "*.so.avx2" -print0; find %{buildroot}/usr/lib64/haswell \! -path "/usr/lib64/haswell/avx512_1/*" -name "*.so*" -print0) | \\\
         xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -2 \
     find %{buildroot}/usr/lib32/ %{buildroot}/usr/lib64/ -maxdepth 2 -name '*.so*' -type f -print0 | \\\
-       xargs -0rtn1 $RPM_XARGS_PFLAG /usr/lib/rpm/clr/brp-create-abi | sort -u > "%{_builddir}/%{?buildsubdir}"/abifiles.list\
+       xargs -0rtn1 $RPM_XARGS_PFLAG %{_rpmconfigdir}/clr/brp-create-abi | sort -u > "%{_builddir}/%{?buildsubdir}"/abifiles.list\
     %{?__debug_package:%{__debug_install_post}}\
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mkdir -p  %{?buildroot:%{buildroot}}/usr/share || : \
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mv  %{?buildroot:%{buildroot}}/usr/lib/debug  %{?buildroot:%{buildroot}}/usr/share || : \
@@ -434,7 +434,7 @@ unset PYTHONOPTIMIZE \
 rm -rf %{?buildroot:%{buildroot}} \
 %{nil}
 
-%find_lang      /usr/lib/rpm/find-lang.sh %{buildroot}
+%find_lang      %{_rpmconfigdir}/find-lang.sh %{buildroot}
 
 #
 # use internal dep generator?
@@ -464,8 +464,8 @@ posix.setenv("RPMBUILD_SOURCEDIR",rpm.expand("%?_sourcedir"));
 #%__find_provides        %{__set_helper_env}%{_rpmconfigdir}/clr/find-provides %name
 #%__find_requires        %{__set_helper_env}%{_rpmconfigdir}/clr/find-requires %name
 
-%__find_provides        /usr/lib/rpm/clr/find-provides
-%__find_requires        /usr/lib/rpm/clr/find-requires
+%__find_provides        %{_rpmconfigdir}/clr/find-provides
+%__find_requires        %{_rpmconfigdir}/clr/find-requires
 
 %__global_cflags	-O2 -g -gdwarf-4 -feliminate-unused-debug-types -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -ftree-vectorize -ftree-slp-vectorize -Wl,--enable-new-dtags -fcf-protection=return -Wl,--build-id=sha1 -Wa,-mbranches-within-32B-boundaries
 

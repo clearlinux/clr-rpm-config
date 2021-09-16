@@ -253,11 +253,6 @@
   chmod a+x %{?buildroot:%{buildroot}}/lib/* || : \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}
 
-%_smp_mflags %([ -z "$RPM_BUILD_NCPUS" ] \\\
-	&& RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"; \\\
-	[ "$RPM_BUILD_NCPUS" -gt 1 ] && echo "-j$RPM_BUILD_NCPUS")
-
-
 %install_info(:-:) \
         ALL_ARGS=(%{**}) \
         NUM_ARGS=${#ALL_ARGS[@]} \

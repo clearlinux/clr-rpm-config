@@ -345,20 +345,36 @@
 
 
 #	Template for debug information sub-package.
-# NOTE: This is a copy from rpm to get the ifnarch noarch fix, it can be removed later
-%debug_package \
-%ifnarch noarch\
-%global __debug_package 1\
-%package debuginfo \
+%_debuginfo_template \
+%package debuginfo\
 Summary: Debug information for package %{name}\
 Group: Development/Debug\
-AutoReqProv: 0\
+AutoReq: 0\
+AutoProv: 1\
 %description debuginfo\
 This package provides debug information for package %{name}.\
 Debug information is useful when developing applications that use this\
 package or when debugging this package.\
 %files debuginfo -f debugfiles.list\
-%defattr(-,root,root)\
+%{nil}
+
+%_debugsource_template \
+%package debugsource\
+Summary: Debug sources for package %{name}\
+Group: Development/Debug\
+AutoReqProv: 0\
+%description debugsource\
+This package provides debug sources for package %{name}.\
+Debug sources are useful when developing applications that use this\
+package or when debugging this package.\
+%files debugsource -f debugsourcefiles.list\
+%{nil}
+
+%debug_package \
+%ifnarch noarch\
+%global __debug_package 1\
+%_debuginfo_template\
+%{?_debugsource_packages:%_debugsource_template}\
 %endif\
 %{nil}
 

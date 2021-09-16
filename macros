@@ -328,7 +328,7 @@
          mv %{?buildroot:%{buildroot}}/usr/share/mime/packages %{?buildroot:%{buildroot}}/usr/share/mime-packages \
          rm -rf %{?buildroot:%{buildroot}}/usr/share/mime \
     fi\
-    RPM_XARGS_PFLAG=-P`getconf _NPROCESSORS_ONLN` \
+    RPM_XARGS_PFLAG=-P%{_smp_build_ncpus} \
     (find %{buildroot} -name "*.so.avx512" -print0; find %{buildroot}/usr/lib64/haswell/avx512_1 -name "*.so*" -print0) | \\\
         xargs -0rtn1 $RPM_XARGS_PFLAG python /usr/share/clr-avx-tools/avxjudge.py -q -5 \
     (find %{buildroot} -name "*.so.avx2" -print0; find %{buildroot}/usr/lib64/haswell \! -path "/usr/lib64/haswell/avx512_1/*" -name "*.so*" -print0) | \\\

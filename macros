@@ -184,7 +184,6 @@
   rm -rf %{?buildroot:%{buildroot}}/usr/local \
   rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
   find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
-  find %{?buildroot:%{buildroot}} -regex ".*\\.pyo$" | xargs rm -f -- \
   [ -d %{?buildroot:%{buildroot}}/etc/dbus-1 ] && mkdir -p %{?buildroot:%{buildroot}}/usr/share/dbus-1  || : \
   [ -d %{?buildroot:%{buildroot}}/etc/dbus-1 ] && mv %{?buildroot:%{buildroot}}/etc/dbus-1/* %{?buildroot:%{buildroot}}/usr/share/dbus-1/  || : \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
@@ -227,7 +226,6 @@
   rm -f %{?buildroot:%{buildroot}}$MPI_ROOT/share/info/dir \
   rm -f %{?buildroot:%{buildroot}}$MPI_LIB/perl5/*/*/perllocal.pod \
   find %{?buildroot:%{buildroot}}$MPI_ROOT -regex ".*\\.la$" | xargs rm -f -- \
-  find %{?buildroot:%{buildroot}}$MPI_ROOT -regex ".*\\.pyo$" | xargs rm -f -- \
   %{!?keepstatic:find %{?buildroot:%{buildroot}}$MPI_ROOT -regex ".*\\.a$" | xargs rm -f --} \
   chmod a+x %{?buildroot:%{buildroot}}$MPI_BIN/* || : \
   chmod a+x %{?buildroot:%{buildroot}}$MPI_LIB/* || :
@@ -244,7 +242,6 @@
   rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
   rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
   find %{?buildroot:%{buildroot}} -regex ".*\\.la$" | xargs rm -f -- \
-  find %{?buildroot:%{buildroot}} -regex ".*\\.pyo$" | xargs rm -f -- \
   [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
   [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
@@ -315,6 +312,7 @@
 
 # brp macros specific to Clear Linux OS follow
 %__brp_strip_static_lto %{_rpmconfigdir}/clr/brp-strip-static-lto %{__objcopy}
+%__brp_remove_python_pyo %{_rpmconfigdir}/clr/brp-remove-python-pyo
 %__brp_java_repack_jars %{!?__jar_repack:%{_rpmconfigdir}/clr/brp-java-repack-jars}
 
 %__os_install_post    \
@@ -323,6 +321,7 @@
     %{?__brp_strip_static_lto} \
     %{?__brp_strip_comment_note} \
     %{?__brp_python_bytecompile} \
+    %{?__brp_remove_python_pyo} \
     find %{buildroot} -print0 | xargs -0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || : \
     %{?__brp_java_repack_jars} \
 %{nil}

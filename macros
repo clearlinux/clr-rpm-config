@@ -302,8 +302,6 @@
 %__brp_strip %{!?__debug_package:%{_rpmconfigdir}/clr/brp-strip %{__strip}}
 #__brp_strip_comment_note %{_rpmconfigdir}/brp-strip-comment-note %{__strip} %{__objdump}
 %__brp_strip_comment_note %{_rpmconfigdir}/clr/brp-strip-comment-note %{__strip} %{__objdump}
-#__brp_strip_shared %{_rpmconfigdir}/brp-strip-shared
-%__brp_strip_shared %{_rpmconfigdir}/clr/brp-strip-shared
 #__brp_strip_static_archive %{_rpmconfigdir}/brp-strip-static-archive %{__strip}
 %__brp_strip_static_archive %{_rpmconfigdir}/clr/brp-strip-static-archive %{__strip}
 

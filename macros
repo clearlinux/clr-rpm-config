@@ -206,20 +206,17 @@
 
 %make_install() \
   %{make_install_command} %* \
-  %{make_install_common} \
-  find %{?buildroot:%{buildroot}}/ -print0 | xargs -r0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || :
+  %{make_install_common}
 
 %make_install_avx2() \
   %{make_install_command} %* \
   %{make_install_common} \
-  /usr/bin/clr-avx2-move.pl haswell .avx2 %{?buildroot:%{buildroot}}/ \
-  find %{?buildroot:%{buildroot}}/ -print0 | xargs -r0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || :
+  /usr/bin/clr-avx2-move.pl haswell .avx2 %{?buildroot:%{buildroot}}/
 
 %make_install_avx512() \
   %{make_install_command} %* \
   %{make_install_common} \
-  /usr/bin/clr-avx2-move.pl haswell/avx512_1 .avx512 %{?buildroot:%{buildroot}}/ \
-  find %{?buildroot:%{buildroot}}/ -print0 | xargs -r0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || :
+  /usr/bin/clr-avx2-move.pl haswell/avx512_1 .avx512 %{?buildroot:%{buildroot}}/
 
 %make_install_openmpi() \
   %{make_install_command} %* \
@@ -313,6 +310,7 @@
 # brp macros specific to Clear Linux OS follow
 %__brp_strip_static_lto %{_rpmconfigdir}/clr/brp-strip-static-lto %{__objcopy}
 %__brp_remove_python_pyo %{_rpmconfigdir}/clr/brp-remove-python-pyo
+%__brp_set_epoch_timestamp %{_rpmconfigdir}/clr/brp-set-epoch-timestamp
 %__brp_java_repack_jars %{!?__jar_repack:%{_rpmconfigdir}/clr/brp-java-repack-jars}
 
 %__os_install_post    \
@@ -322,7 +320,7 @@
     %{?__brp_strip_comment_note} \
     %{?__brp_python_bytecompile} \
     %{?__brp_remove_python_pyo} \
-    find %{buildroot} -print0 | xargs -0 touch -h -d "@${SOURCE_DATE_EPOCH:-1549052798 }" || : \
+    %{?__brp_set_epoch_timestamp} \
     %{?__brp_java_repack_jars} \
 %{nil}
 

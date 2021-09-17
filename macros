@@ -299,7 +299,7 @@
 %__brp_python_bytecompile %{_rpmconfigdir}/clr/brp-python-bytecompile
 
 # brp macros specific to Clear Linux OS follow
-%__brp_strip_static_lto %{_rpmconfigdir}/clr/brp-strip-static-lto %{__objcopy}
+%__brp_strip_static_lto %{_rpmconfigdir}/clr/brp-strip-static-lto
 %__brp_remove_python_pyo %{_rpmconfigdir}/clr/brp-remove-python-pyo
 %__brp_set_epoch_timestamp %{_rpmconfigdir}/clr/brp-set-epoch-timestamp
 %__brp_java_repack_jars %{!?__jar_repack:%{_rpmconfigdir}/clr/brp-java-repack-jars}
@@ -642,3 +642,14 @@ install -D -m 644 %1-16.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/16x16/apps/
 %_source_payload       w0.gzdio
 %_binary_payload       w6.gzdio
 
+
+#==============================================================================
+# ---- macros for compatibility
+
+# __perl was removed in rpm 4.15, and it is used by autospec's 'cpan' pattern.
+%__perl /usr/bin/perl
+# __objcopy was removed in rpm 4.17, and it was previously passed as an
+# argument to Clear's 'brp-strip-static-lto' script. The script works okay at
+# the moment without arguments, but just in case that changes, keep this macro
+# defined.
+%__objcopy /usr/bin/objcopy

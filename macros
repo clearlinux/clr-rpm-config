@@ -31,6 +31,14 @@
 #       Default fuzz level for %patch in spec file.
 %_default_patch_fuzz    2
 
+# Default patch flags
+#
+# Upstream's default (as of rpm 4.17) is `--no-backup-if-mismatch -f`, but
+# because `-f` suppresses the reverse patch diagnostic reporting that we might
+# want for a future autospec feature [0], omit that flag.
+# [0]: https://github.com/clearlinux/autospec/issues/454
+%_default_patch_flags --no-backup-if-mismatch
+
 # avoid aborting with packages without debugfiles.list
 %_empty_manifest_terminate_build 0
 

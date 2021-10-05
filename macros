@@ -149,7 +149,8 @@
     -DCMAKE_INSTALL_LIBDIR=%{_libdir} -DLIB_INSTALL_DIR=%{_libdir} -DLIB_SUFFIX=64 \\\
     -DCMAKE_AR=/usr/bin/gcc-ar \\\
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
-    -DCMAKE_RANLIB=/usr/bin/gcc-ranlib
+    -DCMAKE_RANLIB=/usr/bin/gcc-ranlib \\\
+    -DCMAKE_CTEST_ARGUMENTS="--output-on-failure"
 
 %qmake \
   qmake QMAKE_CFLAGS="$CFLAGS" \\\

@@ -186,6 +186,26 @@
 	INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
   install %*
 
+%make_install_command_v3() \
+  %{__make} \\\
+	DESTDIR=%{?buildroot:%{buildroot}-v3} \\\
+	INSTALLROOT=%{?buildroot:%{buildroot}-v3} \\\
+	install_prefix=%{?buildroot:%{buildroot}-v3} \\\
+	BUILDROOT=%{?buildroot:%{buildroot}-v3} \\\
+	BUILD_ROOT=%{?buildroot:%{buildroot}-v3} \\\
+	INSTALL_ROOT=%{?buildroot:%{buildroot}-v3} \\\
+  install %*
+
+%make_install_command_v4() \
+  %{__make} \\\
+	DESTDIR=%{?buildroot:%{buildroot}-v4} \\\
+	INSTALLROOT=%{?buildroot:%{buildroot}-v4} \\\
+	install_prefix=%{?buildroot:%{buildroot}-v4} \\\
+	BUILDROOT=%{?buildroot:%{buildroot}-v4} \\\
+	BUILD_ROOT=%{?buildroot:%{buildroot}-v4} \\\
+	INSTALL_ROOT=%{?buildroot:%{buildroot}-v4} \\\
+  install %*
+
 %make_install_common() \
   rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
   rm -rf %{?buildroot:%{buildroot}}/usr/lib64/haswell/pkgconfig \
@@ -224,6 +244,14 @@
   %{make_install_command} %* \
   %{make_install_common} \
   /usr/bin/clr-avx2-move.pl haswell/avx512_1 .avx512 %{?buildroot:%{buildroot}}/
+
+%make_install_v3() \
+  %{make_install_command_v3} %* \
+  %{make_install_common}
+
+%make_install_v4() \
+  %{make_install_command_v4} %* \
+  %{make_install_common}
 
 %make_install_openmpi() \
   %{make_install_command} %* \

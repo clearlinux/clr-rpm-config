@@ -157,6 +157,7 @@
       QMAKE_CXXFLAGS="$CXXFLAGS" \\\
       QMAKE_LFLAGS="$LDFLAGS" \\\
       QMAKE_CFLAGS_RELEASE= \\\
+      QMAKE_LIBDIR="/usr/lib64" \\\
       QMAKE_CXXFLAGS_RELEASE=
 
 %makeinstall \

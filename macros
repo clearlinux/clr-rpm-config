@@ -178,33 +178,33 @@
   install
 
 %make_install_command() \
-  DESTDIR=%{?buildroot:%{buildroot}} \\\
-  INSTALLROOT=%{?buildroot:%{buildroot}} \\\
-  install_prefix=%{?buildroot:%{buildroot}} \\\
-  BUILDROOT=%{?buildroot:%{buildroot}} \\\
-  BUILD_ROOT=%{?buildroot:%{buildroot}} \\\
-  INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
   %{__make} \\\
+	DESTDIR=%{?buildroot:%{buildroot}} \\\
+	INSTALLROOT=%{?buildroot:%{buildroot}} \\\
+	install_prefix=%{?buildroot:%{buildroot}} \\\
+	BUILDROOT=%{?buildroot:%{buildroot}} \\\
+	BUILD_ROOT=%{?buildroot:%{buildroot}} \\\
+	INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
   install %*
 
 %make_install_command_v3() \
-  DESTDIR=%{?buildroot:%{buildroot}-v3} \\\
-  INSTALLROOT=%{?buildroot:%{buildroot}-v3} \\\
-  install_prefix=%{?buildroot:%{buildroot}-v3} \\\
-  BUILDROOT=%{?buildroot:%{buildroot}-v3} \\\
-  BUILD_ROOT=%{?buildroot:%{buildroot}-v3} \\\
-  INSTALL_ROOT=%{?buildroot:%{buildroot}-v3} \\\
   %{__make} \\\
+	DESTDIR=%{?buildroot:%{buildroot}-v3} \\\
+	INSTALLROOT=%{?buildroot:%{buildroot}-v3} \\\
+	install_prefix=%{?buildroot:%{buildroot}-v3} \\\
+	BUILDROOT=%{?buildroot:%{buildroot}-v3} \\\
+	BUILD_ROOT=%{?buildroot:%{buildroot}-v3} \\\
+	INSTALL_ROOT=%{?buildroot:%{buildroot}-v3} \\\
   install %*
 
 %make_install_command_v4() \
-  DESTDIR=%{?buildroot:%{buildroot}-v4} \\\
-  INSTALLROOT=%{?buildroot:%{buildroot}-v4} \\\
-  install_prefix=%{?buildroot:%{buildroot}-v4} \\\
-  BUILDROOT=%{?buildroot:%{buildroot}-v4} \\\
-  BUILD_ROOT=%{?buildroot:%{buildroot}-v4} \\\
-  INSTALL_ROOT=%{?buildroot:%{buildroot}-v4} \\\
   %{__make} \\\
+	DESTDIR=%{?buildroot:%{buildroot}-v4} \\\
+	INSTALLROOT=%{?buildroot:%{buildroot}-v4} \\\
+	install_prefix=%{?buildroot:%{buildroot}-v4} \\\
+	BUILDROOT=%{?buildroot:%{buildroot}-v4} \\\
+	BUILD_ROOT=%{?buildroot:%{buildroot}-v4} \\\
+	INSTALL_ROOT=%{?buildroot:%{buildroot}-v4} \\\
   install %*
 
 %make_install_common() \
@@ -263,13 +263,13 @@
   chmod a+x %{?buildroot:%{buildroot}}$MPI_LIB/* || :
 
 %make_install32() \
-  DESTDIR=%{?buildroot:%{buildroot}} \\\
-  INSTALLROOT=%{?buildroot:%{buildroot}} \\\
-  install_prefix=%{?buildroot:%{buildroot}} \\\
-  BUILDROOT=%{?buildroot:%{buildroot}} \\\
-  BUILD_ROOT=%{?buildroot:%{buildroot}} \\\
-  INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
   %{__make} \\\
+	DESTDIR=%{?buildroot:%{buildroot}} \\\
+	INSTALLROOT=%{?buildroot:%{buildroot}} \\\
+	install_prefix=%{?buildroot:%{buildroot}} \\\
+	BUILDROOT=%{?buildroot:%{buildroot}} \\\
+	BUILD_ROOT=%{?buildroot:%{buildroot}} \\\
+	INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
   install %* \
   rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
   rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \

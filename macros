@@ -230,6 +230,7 @@
   [ -d %{?buildroot:%{buildroot}}/sbin ] && rmdir %{?buildroot:%{buildroot}}/sbin || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && rmdir %{?buildroot:%{buildroot}}/bin || : \
   chmod a+x %{?buildroot:%{buildroot}}{/usr,}/lib{,32,64}/*.so* || : \
+  chmod a+x %{?buildroot:%{buildroot}}{/usr,}/bin/* || : \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}
 
 %make_install() \

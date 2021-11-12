@@ -230,7 +230,6 @@
   [ -d %{?buildroot:%{buildroot}}/sbin ] && rmdir %{?buildroot:%{buildroot}}/sbin || : \
   [ -d %{?buildroot:%{buildroot}}/bin ] && rmdir %{?buildroot:%{buildroot}}/bin || : \
   chmod a+x %{?buildroot:%{buildroot}}{/usr,}/lib{,32,64}/*.so* || : \
-  chmod a+x %{?buildroot:%{buildroot}}{/usr,}/bin/* || : \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}
 
 %make_install() \
@@ -362,6 +361,7 @@
     test -z "`find  %{?buildroot:%{buildroot}}  -path 'etc/*' ! -type d`" \
     rm -rf %{?buildroot:%{buildroot}}/etc/* \
     rm -rf %{?buildroot:%{buildroot}}/usr/share/factory/* \
+    chmod a+x %{?buildroot:%{buildroot}}{/usr,}/bin/* || : \
     find %{?buildroot:%{buildroot}} -name "__pycache__" | xargs rm -rf -- \
     if [ -d %{?buildroot:%{buildroot}}/usr/share/mime ] && ! [ -L %{?buildroot:%{buildroot}}/usr/share/mime ]; then \
          mv %{?buildroot:%{buildroot}}/usr/share/mime/packages %{?buildroot:%{buildroot}}/usr/share/mime-packages \

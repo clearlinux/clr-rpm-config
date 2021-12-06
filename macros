@@ -291,6 +291,49 @@
   chmod a+x %{?buildroot:%{buildroot}}/lib/* || : \
   %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}
 
+%ninja_install_command() \
+  DESTDIR=%{?buildroot:%{buildroot}} \\\
+  INSTALLROOT=%{?buildroot:%{buildroot}} \\\
+  install_prefix=%{?buildroot:%{buildroot}} \\\
+  BUILDROOT=%{?buildroot:%{buildroot}} \\\
+  BUILD_ROOT=%{?buildroot:%{buildroot}} \\\
+  INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
+  ninja \\\
+  install %*
+
+%ninja_install() \
+  %{ninja_install_command} %* \
+  %{make_install_common}
+
+%ninja_install32() \
+  DESTDIR=%{?buildroot:%{buildroot}} \\\
+  INSTALLROOT=%{?buildroot:%{buildroot}} \\\
+  install_prefix=%{?buildroot:%{buildroot}} \\\
+  BUILDROOT=%{?buildroot:%{buildroot}} \\\
+  BUILD_ROOT=%{?buildroot:%{buildroot}} \\\
+  INSTALL_ROOT=%{?buildroot:%{buildroot}} \\\
+  ninja \\\
+  install %* \
+  rm -f %{?buildroot:%{buildroot}}/usr/share/info/dir \
+  rm -f %{?buildroot:%{buildroot}}/usr/lib/perl5/*/*/perllocal.pod \
+  [ -d %{?buildroot:%{buildroot}}/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/bin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && mkdir %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && mv %{?buildroot:%{buildroot}}/usr/sbin/* %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/bin ] && mv %{?buildroot:%{buildroot}}/bin/* %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/sbin ] && mv %{?buildroot:%{buildroot}}/sbin/* %{?buildroot:%{buildroot}}/usr/bin/  || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/share/pkgconfig ] && mkdir -p %{?buildroot:%{buildroot}}/usr/lib32/pkgconfig || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/lib/pkgconfig ] && mkdir -p %{?buildroot:%{buildroot}}/usr/lib32/pkgconfig || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/share/pkgconfig ] && mv %{?buildroot:%{buildroot}}/usr/share/pkgconfig/*   %{?buildroot:%{buildroot}}/usr/lib32/pkgconfig   || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/lib/pkgconfig ] && mv %{?buildroot:%{buildroot}}/usr/lib/pkgconfig/*   %{?buildroot:%{buildroot}}/usr/lib32/pkgconfig   || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/share/doc/%{name}-%{version} ] && mv %{?buildroot:%{buildroot}}/usr/share/doc/%{name}-%{version} %{?buildroot:%{buildroot}}/usr/share/doc/%{name} || : \
+  [ -d %{?buildroot:%{buildroot}}/usr/sbin ] && rmdir %{?buildroot:%{buildroot}}/usr/sbin || : \
+  [ -d %{?buildroot:%{buildroot}}/sbin ] && rmdir %{?buildroot:%{buildroot}}/sbin || : \
+  [ -d %{?buildroot:%{buildroot}}/bin ] && rmdir %{?buildroot:%{buildroot}}/bin || : \
+  chmod a+x %{?buildroot:%{buildroot}}/usr/lib32/* || : \
+  chmod a+x %{?buildroot:%{buildroot}}/lib/* || : \
+  %{!?keepstatic:find %{?buildroot:%{buildroot}} -regex ".*\\.a$" | xargs rm -f --}
+
 %install_info(:-:) \
         ALL_ARGS=(%{**}) \
         NUM_ARGS=${#ALL_ARGS[@]} \

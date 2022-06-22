@@ -550,7 +550,7 @@ posix.setenv("RPMBUILD_SOURCEDIR",rpm.expand("%?_sourcedir"));
 %__find_provides        %{_rpmconfigdir}/clr/find-provides
 %__find_requires        %{_rpmconfigdir}/clr/find-requires
 
-%__global_cflags	-O2 -g -feliminate-unused-debug-types -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=64 -Wformat -Wformat-security -Wl,-z,now,-z,relro,-z,max-page-size=0x1000,-z,separate-code -Wno-error -ftree-vectorize -ftree-slp-vectorize -Wl,--enable-new-dtags -fcf-protection=return -Wl,--build-id=sha1  -ftrivial-auto-var-init=zero -mrelax-cmpxchg-loop 
+%__global_cflags	-O2 -g -feliminate-unused-debug-types -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=64 -Wformat -Wformat-security -Wl,-z,now,-z,relro,-z,max-page-size=0x4000,-z,separate-code -Wno-error -ftree-vectorize -ftree-slp-vectorize -Wl,--enable-new-dtags -fcf-protection=return -Wl,--build-id=sha1  -ftrivial-auto-var-init=zero -mrelax-cmpxchg-loop 
 
 
 

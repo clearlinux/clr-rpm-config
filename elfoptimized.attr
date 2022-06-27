@@ -1,4 +1,4 @@
 %__elfoptimized_requires	%{_rpmconfigdir}/elfdeps --requires
 %__elfoptimized_magic		ELF (32|64)-bit.*$
-%__elfoptimized_path		^(/usr)?/lib(64)?/(i686|x86_64|sse2|haswell|tls)/
+%__elfoptimized_path		^(/usr)?/lib(64)?/(i686|x86_64|sse2|haswell|tls|glibc-hwcaps)/
 %__elfoptimized_flags		magic_and_path

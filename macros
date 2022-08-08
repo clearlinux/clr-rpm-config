@@ -719,7 +719,7 @@ install -D -m 644 %1-16.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/16x16/apps/
 #               "w7.lzdio"      lzma-alone level 7, lzma's default
 #
 %_source_payload       w0.gzdio
-%_binary_payload       w6.gzdio
+%_binary_payload       w19.zstdio
 
 
 #==============================================================================

@@ -412,7 +412,6 @@
     fi\
     RPM_XARGS_PFLAG=-P%{_smp_build_ncpus} \
     find %{buildroot}/usr/lib32/ %{buildroot}/usr/lib64/ -maxdepth 2 -name '*.so*' -type f -print0 | \\\
-       xargs -0rtn1 $RPM_XARGS_PFLAG %{_rpmconfigdir}/clr/brp-create-abi | sort -u > "%{_builddir}/%{?buildsubdir}"/abifiles.list\
     %{?__debug_package:%{__debug_install_post}}\
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mkdir -p  %{?buildroot:%{buildroot}}/usr/share || : \
     [ -d  %{?buildroot:%{buildroot}}/usr/lib/debug ] && mv  %{?buildroot:%{buildroot}}/usr/lib/debug  %{?buildroot:%{buildroot}}/usr/share || : \
@@ -458,18 +457,6 @@ package or when debugging this package.\
 %endif\
 %{nil}
 
-#       Template for abi information sub-package.
-%abi_package \
-%package abi \
-Summary: abi components for package %{name}\
-Group: Default\
-AutoReqProv: 0\
-%description abi\
-This package provides abi files for package %{name}.\
-%files abi -f abifiles.list\
-%defattr(-,root,root)\
-%{nil}
-
 # Bad hack to set $LANG to a UTF-8 capable locale during all RPM builds
 %prep \
 %%prep\
@@ -496,7 +483,6 @@ PATH="/usr/lib64/ccache/bin:/usr/local/bin:/usr/bin"; export PATH ; \
 %{nil}
 
 %install %{?_enable_debug_packages:%{?buildsubdir:%{debug_package}}}\
-%{abi_package}\
 %%install\
 LANG=en_US.UTF-8\
 export LANG\
